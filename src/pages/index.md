@@ -1,3 +1,3 @@
-[![](@/assets/img/caution.png)](/docs/welcome)
+[![](@/assets/img/caution.png)](docs/welcome)
 
-[Documentation](/docs/welcome)
+[Documentation](docs/welcome)
