@@ -1,6 +1,6 @@
-# The new BreweryX Documentation
+# TheBrewingProject Documentation
 
-(WIP)
+![TheBrewingProject Documentation - Welcome page](preview.png)
 
 ## Running a development server
 
