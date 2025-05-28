@@ -8,7 +8,8 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
-    site: "https://brewery.lumamc.net",
+    site: "https://breweryteam.github.io",
+    base: "/TheBrewingProject-Documentation",
     vite: {
         plugins: [tailwindcss()],
     },
