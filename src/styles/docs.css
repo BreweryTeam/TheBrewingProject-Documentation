@@ -1,0 +1,60 @@
+/* Remove border from the right side */
+.right-sidebar,
+.main-pane .content-panel {
+    border: none;
+}
+
+/* uhh */
+.sidebar-content::after {
+    padding: 0;
+}
+
+/* see src/components/overrides/Sidebar.astro */
+.sidebar-content {
+    display: block;
+    padding: 0;
+}
+
+.sidebar-content a[aria-current="page"] {
+    background-color: color-mix(in hsl, var(--color-blue-400), transparent 90%);
+    color: var(--sl-color-accent-high);
+    font-weight: initial;
+}
+
+[data-theme="light"] .sidebar-content a[aria-current="page"] {
+    background-color: color-mix(in hsl, var(--color-blue-400), transparent 80%);
+}
+
+/* Keep the different style only for the top-level items */
+.sidebar-content
+    .top-level
+    .large:not(.sidebar-content .top-level > li > .large):not(
+        .sidebar-content .top-level > li > details > summary .group-label > span
+    ) {
+    color: var(--sl-color-gray-2);
+    font-weight: initial;
+}
+
+.sidebar-content .top-level span {
+    font-size: var(--text-sm);
+}
+
+.main-frame mobile-starlight-toc > nav {
+    top: 0;
+    border-top: none;
+}
+
+code:not(figure code) {
+    border: solid 1px color-mix(in hsl, var(--sl-color-gray-4), transparent 75%);
+    border-radius: 0.25rem;
+    color: var(--sl-color-white);
+    background-color: var(--sl-color-gray-6);
+}
+
+[data-theme="light"] code:not(figure code) {
+    background-color: var(--sl-color-black);
+}
+
+.sl-steps > li::before {
+    background-color: var(--sl-color-gray-7);
+}

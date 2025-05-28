@@ -1,0 +1,69 @@
+/* Include the "starlight" layer alongside Tailwind’s default layers. */
+@layer base, starlight, theme, components, utilities;
+
+/* Import Starlight’s compatibility styles. */
+@import "@astrojs/starlight-tailwind";
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@theme {
+    --font-inter: "Inter", "sans-serif";
+    --font-geist: "Geist", "sans-serif";
+    --font-monocraft: "Monocraft", "monospace";
+}
+
+* {
+    @apply border-[var(--sl-color-hairline-shade)];
+}
+body {
+    @apply bg-[var(--sl-color-black)] font-geist m-0;
+}
+
+:root {
+    --navbar-height: 4rem;
+
+    --sl-text-h1: var(--text-4xl);
+    --sl-text-h2: var(--text-3xl);
+    --sl-text-h3: var(--text-2xl);
+    --sl-text-h4: var(--text-xl);
+    --sl-text-h5: var(--text-lg);
+    --sl-text-h6: var(--text-base);
+
+    --sl-color-sidebar-link-active: var(--color-sky-500);
+    --ec-frm-edBg: var(--sl-color-gray-7) !important;
+}
+
+/* Dark mode colors. */
+:root {
+    --sl-color-accent-low: #131e4f;
+    --sl-color-accent: #3463ff;
+    --sl-color-accent-high: #a8c6ff;
+    --sl-color-white: #ebebeb;
+    --sl-color-gray-1: #ebebeb;
+    --sl-color-gray-2: #b7b7b7;
+    --sl-color-gray-3: #7a7a7a;
+    --sl-color-gray-4: #545454;
+    --sl-color-gray-5: #272727;
+    --sl-color-gray-6: #191919;
+    --sl-color-gray-7: #151515;
+    --sl-color-black: #121212;
+
+    --sl-color-hairline-shade: #33333366;
+}
+/* Light mode colors. */
+:root[data-theme="light"] {
+    --sl-color-accent-low: #c7d6ff;
+    --sl-color-accent: #364bff;
+    --sl-color-accent-high: #0a3e83;
+    --sl-color-white: #232323;
+    --sl-color-gray-1: #313131;
+    --sl-color-gray-2: #6a6a6a;
+    --sl-color-gray-3: #757575;
+    --sl-color-gray-4: #9a9a9a;
+    --sl-color-gray-5: #c0c2c7;
+    --sl-color-gray-6: #f8f8f8;
+    --sl-color-gray-7: #ffffff;
+    --sl-color-black: #ffffff;
+
+    --sl-color-hairline-shade: #bbbbbb66;
+}

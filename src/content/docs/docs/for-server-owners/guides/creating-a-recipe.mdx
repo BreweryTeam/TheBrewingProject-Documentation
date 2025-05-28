@@ -1,0 +1,105 @@
+---
+title: "Creating a Recipe"
+---
+
+import Aside from "@/components/docs/Aside.astro";
+
+## Creating a Recipe
+
+In this guide, you'll learn how to create a simple or more complex recipes for TheBrewingProject.
+
+<Aside variant="warning" title="YAML Ain't Markup Language">
+Keep in mind that this guide expects you to have a basic understanding of the YAML format.
+</Aside>
+
+### Basic Properties
+
+We'll start with the properties that every recipe should have. These are:
+
+- `steps` - basically, the instructions for brewing your drink, more on that later.
+- `potion-attributes` - properties of the final potion.
+  - `name` - the name of your masterpiece.
+  - `color` - the color of the potion. This can be either a color from the [`Color`](https://jd.papermc.io/paper/1.21.5/org/bukkit/Color.html) enum or a hex color code (without the `#` prefix).
+
+Let's see how this looks in practice, using vodka as an example.
+
+{/* TODO: Link brewing, distilling tutorials when they are done */}
+
+<Aside variant="info" title="Recipe File">
+All recipes are configured in the `recipes.yml` file, located within the `/plugins/TheBrewingProject/` directory.
+</Aside>
+
+```yaml title="recipes.yml"
+recipes:
+    # ...
+    # ... other recipes
+    # ...
+    vodka:
+        # Previously mentioned properties
+        potion-attributes:
+            name: Vodka
+            color: WHITE # or color: "FFFFFF"
+        # List of steps
+        steps:
+            # Step 1
+            # This is a `cook` step, meaning it needs a cauldron with a heat source beneath it (e.g., a fire).
+            # There's also a `mix` type, which doesn't need a heat source.
+          - type: cook
+            # To create vodka, the cauldron must be filled with water.
+            cauldron-type: water # Accepted cauldron types are `water`, `lava`, and `snow`.
+            # The cooking will take 15 minutes to complete.
+            cook-time: 15
+            # The ingredients needed for the cooking.
+            # The basic format is 'item_id/amount' for items from Minecraft.
+            # For ingredients from 'ingredients.yml', use 'brewery:ingredient_id/amount'.
+            # For items from other plugins, use 'plugin_name:item_id/amount' (see note below).
+            ingredients:
+              # We need 10 potatoes
+              - Potato/10
+            # Step 2, which is a `distill` step.
+          - type: distill
+            # Distill 3 times.
+            runs: 3
+```
+
+<Aside variant="info" title="Item Integrations">
+You can check out the [Integrations](/docs/for-server-owners/reference/integrations) page to see which plugins are supported for items in recipes.
+</Aside>
+
+And there you have it! You have created your first recipe. You can simulate the creation process by using the `/tbp create` command. In this case, you would use:
+```mcfunction
+/tbp create cook 15 water "Potato/10" distill 3
+```
+
+{/* TODO: Link command reference when it's complete */}
+
+![](@/assets/docs/for-server-owners/guides/creating-a-recipe/vodka-1.png)
+
+### Advanced Properties & Effects
+
+So, right now our recipe is pretty basic and doesn't do anything, to make the players want to brew it, we can add, well... alcohol, and some effects.
+
+To do that, we can use the `alcohol` and `effects` properties. These are not required, but unless you use `events`, they are pretty much mandatory for any recipe that you want to be worth brewing.
+
+```yaml title="recipes.yml"
+recipes:
+    # ...
+    vodka:
+        # Collapsed
+        potion-attributes:
+            # ...
+        steps:
+            # ...
+        # The alcohol content of the brew
+        # Can be anything, but will realistically be trunkated between -100 and 100.
+        alcohol: 40
+        # The effects that the potion will give to the player.
+        effects:
+          # TODO: Check if this is in ticks or seconds, the hangar wiki says ticks, but it seems too short.
+          # The weakness effect, which will last for 15 seconds with a level of 1.
+          - WEAKNESS/15
+          # The poison effect, which will last for 10 seconds with a level of 2.
+            POISON/10/2
+          # I have no idea
+          - SLOWNESS/0-1/30-50
+```

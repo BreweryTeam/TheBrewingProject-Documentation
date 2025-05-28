@@ -1,0 +1,48 @@
+---
+title: "Install"
+---
+
+import Aside from "@/components/docs/Aside.astro"
+import { Steps } from "@astrojs/starlight/components";
+import { Coffee, Send } from "@lucide/astro";
+import meta from "@/lib/meta.ts";
+
+## Requirements
+
+- `Java 21+`
+- `PaperMC 1.21.2+` (or any compatible fork like Purpur, Folia, etc.), SpigotMC will not work
+
+<Aside title="Performance Forks" variant="warning">
+    Performance focused PaperMC forks like [Canvas](https://github.com/CraftCanvasMC/Canvas), [Leaf](https://github.com/Winds-Studio/Leaf), and [LightingLuminol](https://github.com/LuminolMC/LightingLuminol) often cause compatibility issues with plugins.
+    
+    Our team has already received reports of BreweryX breaking with them (see [issue #138](https://github.com/BreweryTeam/BreweryX/issues/138), [issue #85](https://github.com/BreweryTeam/BreweryX/issues/85)).
+    
+    While we can't guarantee that TheBrewingProject will work perfectly with these forks, its compatibility should be better than BreweryX's.
+</Aside>
+
+## Installation
+
+<Steps>
+
+1. Download the plugin from one of the following sources:
+
+    - <a href={meta.download.modrinth}>Modrinth</a>
+    - <a href={meta.download.hangar}>Hangar</a>
+    - <a href={meta.download.githubReleases}>GitHub Releases</a>
+    - <a href={meta.download.jenkins}>Jenkins (dev builds)</a>
+
+2. Add the plugin
+
+    - Stop the Server
+    - Put the JAR into the `/plugins` directory
+    - Start the Server
+
+3. Congratulations, **TheBrewingProject** is now installed!
+
+</Steps>
+
+<Aside title="Problems?" variant="error">
+    If you run into any issues during installation, please check your logs for errors. They often contain valuable information for troubleshooting.
+    
+    If you need more help, feel free to reach out to our community on <a href={meta.media.discord}>Discord</a>!
+</Aside>

@@ -1,0 +1,52 @@
+---
+import { Info, TriangleAlert, CircleX, type Icon as IconType } from "@lucide/astro";
+import { twMerge } from "tailwind-merge";
+
+interface Props {
+    variant?: "info" | "warning" | "error";
+    title: string;
+}
+
+const { title, variant } = Astro.props;
+
+type VariantConfig = {
+    classes: string;
+    styles: string;
+    icon: typeof IconType;
+};
+
+const variantConfigs: { [x: string]: VariantConfig } = {
+    info: {
+        classes: "text-blue-500",
+        styles: "!border-l-blue-500/60",
+        icon: Info,
+    },
+    warning: {
+        classes: "text-yellow-500",
+        styles: "!border-l-yellow-500/60",
+        icon: TriangleAlert,
+    },
+    error: {
+        classes: "text-red-500",
+        styles: "!border-l-red-500/60",
+        icon: CircleX,
+    },
+};
+
+const variantConfig = variant ? variantConfigs[variant] : variantConfigs.info;
+---
+
+<div
+    class={twMerge(
+        variantConfig.styles,
+        "border border-border border-l-2 w-full rounded-lg  bg-[var(--sl-color-gray-6)] px-4 py-3"
+    )}
+>
+    <div class="flex items-center gap-2">
+        <variantConfig.icon size={16} class={variantConfig.classes} />
+        <span class="text-sm font-semibold text-[var(--sl-color-white)]">{title}</span>
+    </div>
+    <div class="text-sm">
+        <slot />
+    </div>
+</div>

@@ -1,0 +1,25 @@
+@font-face {
+    font-family: Inter;
+    src: url(/font/Inter.ttf);
+}
+
+@font-face {
+    font-family: RobotoFlex;
+    src: url(/font/RobotoFlex.ttf);
+}
+
+@font-face {
+    font-family: Geist;
+    src: url(/font/geist/geist-1.5.0.ttf);
+}
+
+@font-face {
+    font-family: Geist;
+    font-style: italic, oblique;
+    src: url(/font/geist/geist-italic-1.5.0.ttf);
+}
+
+@font-face {
+    font-family: Monocraft;
+    src: url(/font/monocraft/monocraft.ttf);
+}

@@ -1,0 +1,60 @@
+---
+import config from "virtual:starlight/user-config";
+
+import Search from "@astrojs/starlight/components/Search.astro";
+import SidebarPersister from "@astrojs/starlight/components/SidebarPersister.astro";
+import SidebarSublist from "@astrojs/starlight/components/SidebarSublist.astro";
+import { Image } from "astro:assets";
+import { Icon } from "@astrojs/starlight/components";
+import ThemeSelect from "@astrojs/starlight/components/ThemeSelect.astro";
+
+import logo from "@/assets/img/favicon.png";
+
+const { sidebar } = Astro.locals.starlightRoute;
+const shouldRenderSearch = config.pagefind || config.components.Search !== "@astrojs/starlight/components/Search.astro";
+const socials = config.social || [];
+---
+
+<div class="sidebar-wrapper flex h-full flex-col gap-2">
+    <div class="sidebar-header flex flex-shrink-0 flex-col gap-3 pt-3 pb-2">
+        <div class="flex items-center justify-start gap-2">
+            <Image src={logo} alt={"TheBrewingProject"} width={26} height={26} />
+            <span class="text-white">TheBrewingProject</span>
+        </div>
+
+        {shouldRenderSearch && <Search />}
+    </div>
+
+    <div class="sidebar-scrollable-content flex-grow overflow-y-auto">
+        <SidebarPersister>
+            <SidebarSublist sublist={sidebar} />
+        </SidebarPersister>
+    </div>
+
+    <div class="sidebar-footer flex flex-shrink-0 items-center justify-between border-t py-1">
+        <div class="flex gap-2 pl-1 text-xl">
+            {
+                socials.length > 0 && (
+                    <>
+                        {socials.map(({ label, href, icon }) => (
+                            <a {href} rel="me" class="sl-flex">
+                                <span class="sr-only">{label}</span>
+                                <Icon class="text-[var(--sl-color-gray-2)]" name={icon} />
+                            </a>
+                        ))}
+                    </>
+                )
+            }
+        </div>
+        <ThemeSelect />
+    </div>
+</div>
+
+<style>
+    .sidebar-header,
+    .sidebar-scrollable-content,
+    .sidebar-footer {
+        padding-left: calc(var(--sl-sidebar-pad-x) * 0.8);
+        padding-right: calc(var(--sl-sidebar-pad-x) * 0.8);
+    }
+</style>
