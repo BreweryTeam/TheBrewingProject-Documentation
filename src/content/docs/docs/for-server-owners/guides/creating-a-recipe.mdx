@@ -96,11 +96,7 @@ This makes searching for the perfect brew more rewarding by enabling higher qual
 
 ##### Quality Factored List
 
-A **Quality Factored List** lets you control which items are included in a list based on the brew's final quality. This is particularly useful for:
-
-- Names
-- Lores
-- Potion effects
+A **Quality Factored List** lets you control which items are included in a list based on the brew's final quality. This is particularly useful for **Lores** and **Potion Effects**.
 
 You define which items apply to which quality by prefixing them with `+` symbols. Here's how it works:
 
@@ -110,3 +106,45 @@ You define which items apply to which quality by prefixing them with `+` symbols
 | `++`   | Good only          | The item is included *only* if the brew is of Good quality.                 |
 | `+`    | Bad only           | The item is included *only* if the brew is of Bad quality.                  |
 | (none) | All Qualities      | The item is included regardless of the brew's quality (the default).        |
+
+#### Quality Factored Value
+
+A **Quality Factored Value** allows you to define a value that changes based on the brew's quality. This is useful for:
+
+- Names
+- Messages
+- Alcohol content
+
+You provide a set of values, separated by forward slashes (`/`), corresponding to each quality level in order: Bad, Good, and Excellent.  
+Basically: `Bad Value/Good Value/Excellent Value`.
+
+#### Example
+
+Let's enhance our vodka recipe with quality factored properties:
+
+{/* TODO: Alcohol (should be also quality factored)
+  * even better TODO:, actually learn how the plugin works
+  */ }
+
+```yaml title="recipes.yml"
+recipes:
+    # ...
+    vodka:
+        potion-attributes:
+            # quality factored name
+            name: Poor Vodka/Vodka/Russian Vodka
+            color: WHITE
+            lore:
+              - "Distilled under the light of a full moon by hushed Endermen."
+              - + "A cheap drink, best avoided if you value your taste buds."
+              - ++ "A decent drink, good for a casual evening."
+              - +++ "A drink of the gods, fit for the finest palates."
+        steps:
+          - type: cook
+            cauldron-type: water
+            cook-time: 15
+            ingredients:
+              - Potato/10
+          - type: distill
+            runs: 3
+```
