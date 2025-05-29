@@ -15,6 +15,11 @@
     padding: 0;
 }
 
+.main-frame mobile-starlight-toc > nav {
+    top: 0;
+    border-top: none;
+}
+
 .sidebar-content a[aria-current="page"] {
     background-color: color-mix(in hsl, var(--color-blue-400), transparent 90%);
     color: var(--sl-color-accent-high);
@@ -39,11 +44,6 @@
     font-size: var(--text-sm);
 }
 
-.main-frame mobile-starlight-toc > nav {
-    top: 0;
-    border-top: none;
-}
-
 code:not(figure code) {
     border: solid 1px color-mix(in hsl, var(--sl-color-gray-4), transparent 75%);
     border-radius: 0.25rem;
@@ -55,6 +55,25 @@ code:not(figure code) {
     background-color: var(--sl-color-black);
 }
 
+/* Change the background of the step circles in Steps.astro component */
 .sl-steps > li::before {
     background-color: var(--sl-color-gray-7);
+}
+
+/* Restyle tables and fix the layout breaking with images */
+.sl-markdown-content table:not(:where(.not-content *)) {
+    border-collapse: collapse;
+    background-color: var(--sl-color-gray-7);
+    font-size: 0.925em;
+    display: table;
+}
+
+.sl-markdown-content :is(th, td):not(:where(.not-content *)) {
+    border: 1px solid var(--sl-color-gray-5);
+    padding: 0.75rem 1rem;
+    vertical-align: top;
+}
+
+.sl-markdown-content th:not(:where(.not-content *)) {
+    background-color: var(--sl-color-gray-6);
 }

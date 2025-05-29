@@ -9,7 +9,6 @@ import tailwindcss from "@tailwindcss/vite";
 // https://astro.build/config
 export default defineConfig({
     site: "https://breweryteam.github.io",
-    base: "/TheBrewingProject-Documentation",
     vite: {
         plugins: [tailwindcss()],
     },
@@ -61,13 +60,21 @@ export default defineConfig({
                             label: "Guides",
                             autogenerate: { directory: "docs/for-players/guides/" },
                             collapsed: true,
-                        }
-                    ]
-                }
+                        },
+                    ],
+                },
             ],
             expressiveCode: {
                 themes: ["slack-dark", "light-plus"],
                 plugins: [pluginLineNumbers()],
+                defaultProps: {
+                    showLineNumbers: false,
+                    overridesByLang: {
+                        "yaml": {
+                            showLineNumbers: true,
+                        },
+                    },
+                },
             },
         }),
         react(),

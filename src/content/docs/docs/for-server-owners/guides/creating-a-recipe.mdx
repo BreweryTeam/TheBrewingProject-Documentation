@@ -16,11 +16,14 @@ Keep in mind that this guide expects you to have a basic understanding of the YA
 
 We'll start with the properties that every recipe should have. These are:
 
+{/* TODO: Mention colors, minimessage */}
+
 - `steps` - basically, the instructions for brewing your drink, more on that later.
 - `potion-attributes` - properties of the final potion.
   - `name` - the name of your masterpiece.
   - `color` - the color of the potion. This can be either a color from the [`Color`](https://jd.papermc.io/paper/1.21.5/org/bukkit/Color.html) enum or a hex color code (without the `#` prefix).
-
+  - `lore` - lore of the potion as a list of strings.
+  
 Let's see how this looks in practice, using vodka as an example.
 
 {/* TODO: Link brewing, distilling tutorials when they are done */}
@@ -39,6 +42,8 @@ recipes:
         potion-attributes:
             name: Vodka
             color: WHITE # or color: "FFFFFF"
+            lore:
+              - "Distilled under the light of a full moon by hushed Endermen."
         # List of steps
         steps:
             # Step 1
@@ -73,33 +78,35 @@ And there you have it! You have created your first recipe. You can simulate the 
 
 {/* TODO: Link command reference when it's complete */}
 
-![](@/assets/docs/for-server-owners/guides/creating-a-recipe/vodka-1.png)
+Here's how the vodka appears in-game based on the recipe's accuracy:
 
-### Advanced Properties & Effects
+| Steps | Quality | Preview |
+|-------|---------|---------|
+| 10 Potatoes, Cook for 15 minutes, Distill 3 times     | Excellent    | ![](@/assets/docs/for-server-owners/guides/creating-a-recipe/vodka-1-excellent.png) |
+| 7 Potatoes, Cook for 15 minutes, Distill 5 times     | Good    | ![](@/assets/docs/for-server-owners/guides/creating-a-recipe/vodka-1-good.png) |
+| 25 Potatoes, Cook for 25 minutes, Distill 1 time    | Bad    | ![](@/assets/docs/for-server-owners/guides/creating-a-recipe/vodka-1-bad.png) |
 
-So, right now our recipe is pretty basic and doesn't do anything, to make the players want to brew it, we can add, well... alcohol, and some effects.
+Why am I showing you all three variants, when they all look the same?
+That's because we'll introduce quality factored properties, and you'll notice that the quality of the brew will affect the potion's appearance.
 
-To do that, we can use the `alcohol` and `effects` properties. These are not required, but unless you use `events`, they are pretty much mandatory for any recipe that you want to be worth brewing.
+### Quality Factored Propertiess
 
-```yaml title="recipes.yml"
-recipes:
-    # ...
-    vodka:
-        # Collapsed
-        potion-attributes:
-            # ...
-        steps:
-            # ...
-        # The alcohol content of the brew
-        # Can be anything, but will realistically be trunkated between -100 and 100.
-        alcohol: 40
-        # The effects that the potion will give to the player.
-        effects:
-          # TODO: Check if this is in ticks or seconds, the hangar wiki says ticks, but it seems too short.
-          # The weakness effect, which will last for 15 seconds with a level of 1.
-          - WEAKNESS/15
-          # The poison effect, which will last for 10 seconds with a level of 2.
-            POISON/10/2
-          # I have no idea
-          - SLOWNESS/0-1/30-50
-```
+**Quality Factored Properties** allow you to define values or behaviors that adapt based on the achieved quality of the brew (Bad, Good or Excellent).  
+This makes searching for the perfect brew more rewarding by enabling higher quality brews to deliver better or unique effects.
+
+##### Quality Factored List
+
+A **Quality Factored List** lets you control which items are included in a list based on the brew's final quality. This is particularly useful for:
+
+- Names
+- Lores
+- Potion effects
+
+You define which items apply to which quality by prefixing them with `+` symbols. Here's how it works:
+
+| Prefix | Applies To Quality | Description                                                                 |
+|--------|--------------------|-----------------------------------------------------------------------------|
+| `+++`  | Excellent only     | The item is included *only* if the brew is of Excellent quality.            |
+| `++`   | Good only          | The item is included *only* if the brew is of Good quality.                 |
+| `+`    | Bad only           | The item is included *only* if the brew is of Bad quality.                  |
+| (none) | All Qualities      | The item is included regardless of the brew's quality (the default).        |
