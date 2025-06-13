@@ -11,31 +11,31 @@
         "prettier": "prettier --write ."
     },
     "dependencies": {
-        "@ariakit/react": "^0.4.17",
         "@astrojs/check": "^0.9.4",
         "@astrojs/react": "^4.3.0",
         "@astrojs/starlight": "https://gitpkg.vercel.app/Nadwey/starlight/packages/starlight?main",
         "@astrojs/starlight-tailwind": "^4.0.1",
         "@expressive-code/plugin-line-numbers": "^0.41.2",
-        "@lucide/astro": "^0.511.0",
-        "@tailwindcss/vite": "^4.1.7",
-        "@types/react": "^19.1.5",
-        "@types/react-dom": "^19.1.5",
-        "astro": "^5.8.0",
+        "@lucide/astro": "^0.514.0",
+        "@tailwindcss/vite": "^4.1.9",
+        "@types/react": "^19.1.8",
+        "@types/react-dom": "^19.1.6",
+        "astro": "^5.9.2",
+        "astro-d2": "^0.8.0",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
-        "lucide-react": "^0.511.0",
+        "lucide-react": "^0.513.0",
         "react": "^19.1.0",
         "react-dom": "^19.1.0",
         "sharp": "^0.34.2",
         "tailwind-merge": "^3.3.0",
-        "tailwindcss": "^4.1.7",
+        "tailwindcss": "^4.1.8",
         "typescript": "^5.8.3",
         "valtio": "^2.1.5"
     },
     "devDependencies": {
         "prettier": "^3.5.3",
         "prettier-plugin-astro": "^0.14.1",
-        "prettier-plugin-tailwindcss": "^0.6.11"
+        "prettier-plugin-tailwindcss": "^0.6.12"
     }
 }

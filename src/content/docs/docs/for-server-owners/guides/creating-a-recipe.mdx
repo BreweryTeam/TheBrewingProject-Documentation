@@ -3,6 +3,7 @@ title: "Creating a Recipe"
 ---
 
 import Aside from "@/components/docs/Aside.astro";
+import { Badge } from '@astrojs/starlight/components';
 
 ## Creating a Recipe
 
@@ -12,18 +13,106 @@ In this guide, you'll learn how to create a simple or more complex recipes for T
 Keep in mind that this guide expects you to have a basic understanding of the YAML format.
 </Aside>
 
-### Basic Properties
+## Fundamental concepts
+
+### Quality Factored Propertiess
+
+**Quality Factored Properties** allow you to define values or behaviors that adapt based on the achieved quality of the brew (Bad, Good or Excellent).  
+This makes searching for the perfect brew more rewarding as you can make the higher quality brews deliver better results or unique effects.
+
+##### Quality Factored List
+
+A **Quality Factored List** lets you control which items are included in a list based on the brew's final quality. This is particularly useful for **Lores** and **Potion Effects**.
+
+You define which items apply to which quality by prefixing them with `+` symbols. Here's how it works:
+
+| Prefix | Applies To Quality | Description                                                                 |
+|--------|--------------------|-----------------------------------------------------------------------------|
+| `+++`  | Excellent only     | The item is included *only* if the brew is of Excellent quality.            |
+| `++`   | Good only          | The item is included *only* if the brew is of Good quality.                 |
+| `+`    | Bad only           | The item is included *only* if the brew is of Bad quality.                  |
+| (none) | All Qualities      | The item is included regardless of the brew's quality (the default).        |
+
+##### Example
+
+```yaml
+lore:
+  - +++ A rare, top-shelf beer, perfect for connoisseurs.
+  - ++ A decent brew, great for relaxing after a hard day's work.
+  - + A cloudy, sluggish mixture. It'll teach you a lesson about cutting corners when brewing.
+  - This message is always included, regardless of quality.
+```
+
+#### Quality Factored Value
+
+{/* TODO: Put this in Reference */}
+We can also make a single value to change with quality (name, message, alcohol level, etc.).  
+To do that provide three options separated by `/`: `Bad/Good/Excellent`.
+
+##### Example
+
+```yaml
+name: Skunked Beer/Beer/Golden Lager
+```
+
+### ingredients
+
+{/* TODO */}
+
+### MiniMessage
+
+Every message or text in the recipe configuration is going to be formatted using MiniMessage.  
+There's no support for legacy formatting codes (e.g. `&a`).
+
+For more information on how to use MiniMessage, check out the [MiniMessage Format](https://docs.advntr.dev/minimessage/format) page.
+
+## An example Vodka recipe
 
 We'll start with the properties that every recipe should have. These are:
 
 {/* TODO: Mention colors, minimessage */}
 
-- `steps` - basically, the instructions for brewing your drink, more on that later.
+- `steps` - basically, the instructions for brewing your drink, see below.
 - `potion-attributes` - properties of the final potion.
-  - `name` - the name of your masterpiece.
+  - `name` - the name of your masterpiece. <Badge text="Quality Factored Value" variant="note" />
   - `color` - the color of the potion. This can be either a color from the [`Color`](https://jd.papermc.io/paper/1.21.5/org/bukkit/Color.html) enum or a hex color code (without the `#` prefix).
-  - `lore` - lore of the potion as a list of strings.
-  
+  - `lore` - lore of the potion as a list of strings. <Badge text="Quality Factored List" variant="note" />
+- `alcohol` - the alcohol content of the potion. The value can be anything, but will realistically be trunkated between -100 and 100. <Badge text="Quality Factored Value" variant="note" />
+
+### `steps`
+
+The `steps` property is a list of steps that the player must follow to create the potion.
+
+Each step has a `type`, which can be either `cook`, `mix`, `distill` or `age`.  
+
+A recipe can't include both `cook` and `mix` steps. This means a typical recipe will follow one of these two paths:
+
+```d2 sketch pad=50 animated
+direction: down
+
+# Cook
+distill_cook_path: Distill
+age_cook_path: Age
+
+cook -> distill_cook_path { style.animated: true }
+distill_cook_path -> age_cook_path { style.animated: true }
+cook -> age_cook_path { style.animated: true }
+
+# Distill
+distill_mix_path: Distill
+age_mix_path: Age
+
+mix -> distill_mix_path { style.animated: true }
+distill_mix_path -> age_mix_path { style.animated: true }
+mix -> age_mix_path { style.animated: true }
+```
+
+#### `cook` Step
+
+A `cook` step requires a cauldron with a heat source beneath it (e.g., a fire).  
+It has 2 mandatory properties: `ingredients` and `cook-time`, and one optional property: `cauldron-type` (water by default).
+The `cauldron-type` can be one of the following: `water`, `lava`, or `snow`.
+
 Let's see how this looks in practice, using vodka as an example.
 
 {/* TODO: Link brewing, distilling tutorials when they are done */}
@@ -44,6 +133,8 @@ recipes:
             color: WHITE # or color: "FFFFFF"
             lore:
               - "Distilled under the light of a full moon by hushed Endermen."
+        # 40ml alcohol, TODO: Ask Thorin if it's % or ml or something else (or just 40).
+        alcohol: 40
         # List of steps
         steps:
             # Step 1
@@ -87,44 +178,11 @@ Here's how the vodka appears in-game based on the recipe's accuracy:
 | 25 Potatoes, Cook for 25 minutes, Distill 1 time    | Bad    | ![](@/assets/docs/for-server-owners/guides/creating-a-recipe/vodka-1-bad.png) |
 
 Why am I showing you all three variants, when they all look the same?
-That's because we'll introduce quality factored properties, and you'll notice that the quality of the brew will affect the potion's appearance.
+That's because we'll introduce quality factored properties mentioned earlier, and you'll see how much difference they make.
 
-### Quality Factored Propertiess
-
-**Quality Factored Properties** allow you to define values or behaviors that adapt based on the achieved quality of the brew (Bad, Good or Excellent).  
-This makes searching for the perfect brew more rewarding by enabling higher quality brews to deliver better or unique effects.
-
-##### Quality Factored List
-
-A **Quality Factored List** lets you control which items are included in a list based on the brew's final quality. This is particularly useful for **Lores** and **Potion Effects**.
-
-You define which items apply to which quality by prefixing them with `+` symbols. Here's how it works:
-
-| Prefix | Applies To Quality | Description                                                                 |
-|--------|--------------------|-----------------------------------------------------------------------------|
-| `+++`  | Excellent only     | The item is included *only* if the brew is of Excellent quality.            |
-| `++`   | Good only          | The item is included *only* if the brew is of Good quality.                 |
-| `+`    | Bad only           | The item is included *only* if the brew is of Bad quality.                  |
-| (none) | All Qualities      | The item is included regardless of the brew's quality (the default).        |
-
-#### Quality Factored Value
-
-A **Quality Factored Value** allows you to define a value that changes based on the brew's quality. This is useful for:
-
-- Names
-- Messages
-- Alcohol content
-
-You provide a set of values, separated by forward slashes (`/`), corresponding to each quality level in order: Bad, Good, and Excellent.  
-Basically: `Bad Value/Good Value/Excellent Value`.
-
-#### Example
+#### Quality Factored Properties Example
 
 Let's enhance our vodka recipe with quality factored properties:
-
-{/* TODO: Alcohol (should be also quality factored)
-  * even better TODO:, actually learn how the plugin works
-  */ }
 
 ```yaml title="recipes.yml"
 recipes:
@@ -134,11 +192,12 @@ recipes:
             # quality factored name
             name: Poor Vodka/Vodka/Russian Vodka
             color: WHITE
+            # quality factored lore
             lore:
-              - "Distilled under the light of a full moon by hushed Endermen."
-              - + "A cheap drink, best avoided if you value your taste buds."
-              - ++ "A decent drink, good for a casual evening."
-              - +++ "A drink of the gods, fit for the finest palates."
+              - + A cheap drink, best avoided if you value your taste buds.
+              - ++ A decent drink, good for a casual evening.
+              - +++ Strong enough to warm a Siberian winter.
+        alcohol: 25/32/40
         steps:
           - type: cook
             cauldron-type: water
