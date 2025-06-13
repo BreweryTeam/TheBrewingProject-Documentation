@@ -91,6 +91,7 @@ A recipe can't include both `cook` and `mix` steps. This means a typical recipe 
 direction: down
 
 # Cook
+cook: Cook
 distill_cook_path: Distill
 age_cook_path: Age
 
@@ -99,6 +100,7 @@ distill_cook_path -> age_cook_path { style.animated: true }
 cook -> age_cook_path { style.animated: true }
 
 # Mix
+mix: Mix
 distill_mix_path: Distill
 age_mix_path: Age
 
