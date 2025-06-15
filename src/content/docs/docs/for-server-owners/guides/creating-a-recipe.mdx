@@ -5,17 +5,18 @@ title: "Creating a Recipe"
 import Aside from "@/components/docs/Aside.astro";
 import { Badge } from '@astrojs/starlight/components';
 
-## Creating a Recipe
-
 In this guide, you'll learn how to create a simple or more complex recipes for TheBrewingProject.
 
 <Aside variant="warning" title="YAML Ain't Markup Language">
 Keep in mind that this guide expects you to have a basic understanding of the YAML format.
 </Aside>
 
+TODO: Move this to a better place:  
+The recipes in TheBrewingProject are stored in `/plugins/TheBrewingProject/recipes.yml` file, and are written in YAML format.
+
 ## Fundamental concepts
 
-### Quality Factored Propertiess
+### Quality Factored Properties
 
 **Quality Factored Properties** allow you to define values or behaviors that adapt based on the achieved quality of the brew (Bad, Good or Excellent).  
 This makes searching for the perfect brew more rewarding as you can make the higher quality brews deliver better results or unique effects.
@@ -55,33 +56,56 @@ To do that provide three options separated by `/`: `Bad/Good/Excellent`.
 name: Skunked Beer/Beer/Golden Lager
 ```
 
-### ingredients
+### Ingredients
 
-{/* TODO */}
+An ingredient can be an item from Minecraft, an item from another plugin, or another brew.  
+See the [Integrations](/docs/for-server-owners/reference/integrations) page for a list of supported plugins.
+
+Ingredients are defined in the `ingredients` property of a recipe, and can be specified in the following formats, depending on what you want to do:
+
+| Format | Description |
+| - | - |
+| `<item_id>/<amount>` | A Minecraft item. |
+| `<plugin_name>:<item_id>/<amount>` | An item from another plugin. |
+| `brewery:<brew_id>/<amount>` | Another brew. |
+
+Example:
+```yaml
+ingredients:
+  - emerald/5 # 5 Emeralds.
+  - nexo:infused_golden_apple/2 # 2 Infused Golden Apples from the Nexo plugin.
+  - brewery:beer/1 # 1 Beer from TheBrewingProject.
+```
 
 ### MiniMessage
 
 Every message or text in the recipe configuration is going to be formatted using MiniMessage.  
-There's no support for legacy formatting codes (e.g. `&a`).
+**There's no support for legacy formatting codes!**
+
+Here's a quick comparison of how MiniMessage looks compared to legacy formatting:
+
+| Format | Message |
+| - | - |
+| Legacy | `&2&lTest&r&#2080ff123` |
+| MiniMessage | `<dark_green><bold>Test<reset><#2080ff>123` |
+| MiniMessage (short) | `<dark_green><b>Test<r><#2080ff>123` |
 
 For more information on how to use MiniMessage, check out the [MiniMessage Format](https://docs.advntr.dev/minimessage/format) page.
 
-## An example Vodka recipe
+## Recipe Structure
 
-We'll start with the properties that every recipe should have. These are:
+> Waiting on [expressive-code#add-annotation-comments](https://github.com/expressive-code/expressive-code/tree/add-annotation-comments) to get merged 🙏.
 
-{/* TODO: Mention colors, minimessage */}
+A TheBrewingProject recipe is a YAML object that contains the following properties (see below for more details):
 
 - `steps` - basically, the instructions for brewing your drink, see below.
-- `potion-attributes` - properties of the final potion.
-  - `name` - the name of your masterpiece. <Badge text="Quality Factored Value" variant="note" />
-  - `color` - the color of the potion. This can be either a color from the [`Color`](https://jd.papermc.io/paper/1.21.5/org/bukkit/Color.html) enum or a hex color code (without the `#` prefix).
-  - `lore` - lore of the potion as a list of strings. <Badge text="Quality Factored List" variant="note" />
-- `alcohol` - the alcohol content of the potion. The value can be anything, but will realistically be trunkated between -100 and 100. <Badge text="Quality Factored Value" variant="note" />
+- `potion-attributes` - properties of the final brew.
+- `alcohol` - the alcohol content of the brew. The value can be anything, but will realistically be trunkated between -100 and 100. <Badge text="Quality Factored Value" variant="note" />
+- `brew-difficulty` - How hard it should be to make the brew.
 
 ### `steps`
 
-The `steps` property is a list of steps that the player must follow to create the potion.
+The `steps` property is a list of steps that the player must follow to create the brew.
 
 Each step has a `type`, which can be either `cook`, `mix`, `distill` or `age`.  
 
@@ -109,103 +133,84 @@ distill_mix_path -> age_mix_path { style.animated: true }
 mix -> age_mix_path { style.animated: true }
 ```
 
-#### `cook` Step
+#### The `cook` Step
 
-A `cook` step requires a cauldron with a heat source beneath it (e.g., a fire).  
-It has 2 mandatory properties: `ingredients` and `cook-time`, and one optional property: `cauldron-type` (water by default).
-The `cauldron-type` can be one of the following: `water`, `lava`, or `snow`.
+The `cook` step requires a heat source underneath a cauldron, such as a furnace or a campfire.
 
-Let's see how this looks in practice, using vodka as an example.
+It has 2 mandatory properties: `ingredients` and `cook-time`,  
+and one optional property: `cauldron-type`.
 
-{/* TODO: Link brewing, distilling tutorials when they are done */}
+```yaml
+- type: cook
+  # Accepted cauldron types are `water`, `lava`, and `snow`.
+  # If not specified, it defaults to `water`.
+  cauldron-type: water
 
-<Aside variant="info" title="Recipe File">
-All recipes are configured in the `recipes.yml` file, located within the `/plugins/TheBrewingProject/` directory.
-</Aside>
+  # How long the cooking will take, in minutes.
+  cook-time: 15
 
-```yaml title="recipes.yml"
-recipes:
-    # ...
-    # ... other recipes
-    # ...
-    vodka:
-        # Previously mentioned properties
-        potion-attributes:
-            name: Vodka
-            color: WHITE # or color: "FFFFFF"
-            lore:
-              - "Distilled under the light of a full moon by hushed Endermen."
-        # 40ml alcohol, TODO: Ask Thorin if it's % or ml or something else (or just 40).
-        alcohol: 40
-        # List of steps
-        steps:
-            # Step 1
-            # This is a `cook` step, meaning it needs a cauldron with a heat source beneath it (e.g., a fire).
-            # There's also a `mix` type, which doesn't need a heat source.
-          - type: cook
-            # To create vodka, the cauldron must be filled with water.
-            cauldron-type: water # Accepted cauldron types are `water`, `lava`, and `snow`.
-            # The cooking will take 15 minutes to complete.
-            cook-time: 15
-            # The ingredients needed for the cooking.
-            # The basic format is 'item_id/amount' for items from Minecraft.
-            # For ingredients from 'ingredients.yml', use 'brewery:ingredient_id/amount'.
-            # For items from other plugins, use 'plugin_name:item_id/amount' (see note below).
-            ingredients:
-              # We need 10 potatoes
-              - Potato/10
-            # Step 2, which is a `distill` step.
-          - type: distill
-            # Distill 3 times.
-            runs: 3
+  # The ingredients needed for the cook step.
+  ingredients:
+    - Potato/10 # 10 Potatoes
+    - nexo:pomegranate/5 # 5 Pomegranates from the Nexo plugin
 ```
 
-<Aside variant="info" title="Item Integrations">
-You can check out the [Integrations](../reference/integrations) page to see which plugins are supported for items in recipes.
-</Aside>
+#### The `mix` Step
 
-And there you have it! You have created your first recipe. You can simulate the creation process by using the `/tbp create` command. In this case, you would use:
-```mcfunction
-/tbp create cook 15 water "Potato/10" distill 3
+The `mix` step works similarly to the `cook` step, but it doesn't require a cauldron or a heat source.
+
+It has 2 mandatory properties: `ingredients` and `mix-time`.
+
+```yaml
+- type: mix
+  # How long the mixing will take, in minutes.
+  mix-time: 5
+
+  # The ingredients needed for the brew.
+  ingredients:
+    - Apple/3 # 3 Apples
 ```
 
-{/* TODO: Link command reference when it's complete */}
+#### The `distill` Step
 
-Here's how the vodka appears in-game based on the recipe's accuracy:
+Useful step for many recipes, although not required, [happens in a distillery](/docs/for-players/guides/distilling)
 
-| Steps | Quality | Preview |
-|-------|---------|---------|
-| 10 Potatoes, Cook for 15 minutes, Distill 3 times     | Excellent    | ![](@/assets/docs/for-server-owners/guides/creating-a-recipe/vodka-1-excellent.png) |
-| 7 Potatoes, Cook for 15 minutes, Distill 5 times     | Good    | ![](@/assets/docs/for-server-owners/guides/creating-a-recipe/vodka-1-good.png) |
-| 25 Potatoes, Cook for 25 minutes, Distill 1 time    | Bad    | ![](@/assets/docs/for-server-owners/guides/creating-a-recipe/vodka-1-bad.png) |
+It has 1 mandatory property: `runs`.
 
-Why am I showing you all three variants, when they all look the same?
-That's because we'll introduce quality factored properties mentioned earlier, and you'll see how much difference they make.
+```yaml
+- type: distill
 
-#### Quality Factored Properties Example
-
-Let's enhance our vodka recipe with quality factored properties:
-
-```yaml title="recipes.yml"
-recipes:
-    # ...
-    vodka:
-        potion-attributes:
-            # quality factored name
-            name: Poor Vodka/Vodka/Russian Vodka
-            color: WHITE
-            # quality factored lore
-            lore:
-              - + A cheap drink, best avoided if you value your taste buds.
-              - ++ A decent drink, good for a casual evening.
-              - +++ Strong enough to warm a Siberian winter.
-        alcohol: 25/32/40
-        steps:
-          - type: cook
-            cauldron-type: water
-            cook-time: 15
-            ingredients:
-              - Potato/10
-          - type: distill
-            runs: 3
+  # How many times the brew needs to be distilled.
+  runs: 3
 ```
+
+#### The `age` Step
+
+The `age` step means the recipe needs to be aged in a barrel.
+
+It has 2 mandatory properties: `barrel-type` and `age-years`.
+
+```yaml
+- type: age
+
+  # The type of barrel to use for aging.
+  # Includes copper and all the wood types.
+  barrel-type: oak
+
+  # How long the aging will take, in game days.
+  age-years: 2
+```
+
+### `potion-attributes`
+
+Potion attributes basically define the actual potion item that will be created as the output of a recipe.
+
+Available properties are:
+
+TODO: Check again if optional or quality factored.
+
+- `name` - the name of your masterpiece. <Badge text="Quality Factored Value" variant="tip" />
+- `color` - the color of the potion. This can be either a color from the [`Color`](https://jd.papermc.io/paper/1.21.5/org/bukkit/Color.html) enum or a hex color code (without the `#` prefix).
+- `lore` - lore of the brew as a list of strings. <Badge text="Quality Factored List" variant="tip" />
+- `glint` - whether to apply a glint effect to the potion item. Default to `false`.
+- `append-brew-info-lore` - you can decide whether the extra lore should be displayed for an item, this includes for example recipe hints such as cook time, and so on.
