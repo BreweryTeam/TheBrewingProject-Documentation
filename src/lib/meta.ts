@@ -3,7 +3,7 @@ namespace meta {
         modrinth: "https://modrinth.com/plugin/thebrewingproject",
         hangar: "https://hangar.papermc.io/BreweryTeam/TheBrewingProject",
         githubReleases: "https://github.com/BreweryTeam/TheBrewingProject/releases",
-        jenkins: "https://ci.nadwey.pl/job/TheBrewingProject/"
+        jenkins: "https://ci.nadwey.pl/job/TheBrewingProject/",
     };
 
     export const media = {

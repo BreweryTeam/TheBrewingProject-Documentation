@@ -1,7 +1,3 @@
 export function Command() {
-    return (
-        <div className="font-monocraft">
-            
-        </div>
-    );
+    return <div className="font-monocraft"></div>;
 }

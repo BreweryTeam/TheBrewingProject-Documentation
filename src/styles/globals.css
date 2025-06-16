@@ -16,7 +16,7 @@
     @apply border-[var(--sl-color-hairline-shade)];
 }
 body {
-    @apply bg-[var(--sl-color-black)] font-geist m-0;
+    @apply font-geist m-0 bg-[var(--sl-color-black)];
 }
 
 :root {

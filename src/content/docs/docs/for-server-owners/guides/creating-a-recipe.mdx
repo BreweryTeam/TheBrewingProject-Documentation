@@ -3,12 +3,13 @@ title: "Creating a Recipe"
 ---
 
 import Aside from "@/components/docs/Aside.astro";
-import { Badge } from '@astrojs/starlight/components';
+import { Badge } from "@astrojs/starlight/components";
 
 In this guide, you'll learn how to create a simple or more complex recipes for TheBrewingProject.
 
 <Aside variant="warning" title="YAML Ain't Markup Language">
-Keep in mind that this guide expects you to have a basic understanding of the YAML format.
+  Keep in mind that this guide expects you to have a basic understanding of the YAML
+  format.
 </Aside>
 
 TODO: Move this to a better place:  
@@ -27,12 +28,12 @@ A **Quality Factored List** lets you control which items are included in a list 
 
 You define which items apply to which quality by prefixing them with `+` symbols. Here's how it works:
 
-| Prefix | Applies To Quality | Description                                                                 |
-|--------|--------------------|-----------------------------------------------------------------------------|
-| `+++`  | Excellent only     | The item is included *only* if the brew is of Excellent quality.            |
-| `++`   | Good only          | The item is included *only* if the brew is of Good quality.                 |
-| `+`    | Bad only           | The item is included *only* if the brew is of Bad quality.                  |
-| (none) | All Qualities      | The item is included regardless of the brew's quality (the default).        |
+| Prefix | Applies To Quality | Description                                                          |
+| ------ | ------------------ | -------------------------------------------------------------------- |
+| `+++`  | Excellent only     | The item is included _only_ if the brew is of Excellent quality.     |
+| `++`   | Good only          | The item is included _only_ if the brew is of Good quality.          |
+| `+`    | Bad only           | The item is included _only_ if the brew is of Bad quality.           |
+| (none) | All Qualities      | The item is included regardless of the brew's quality (the default). |
 
 ##### Example
 
@@ -63,13 +64,14 @@ See the [Integrations](/docs/for-server-owners/reference/integrations) page for 
 
 Ingredients are defined in the `ingredients` property of a recipe, and can be specified in the following formats, depending on what you want to do:
 
-| Format | Description |
-| - | - |
-| `<item_id>/<amount>` | A Minecraft item. |
+| Format                             | Description                  |
+| ---------------------------------- | ---------------------------- |
+| `<item_id>/<amount>`               | A Minecraft item.            |
 | `<plugin_name>:<item_id>/<amount>` | An item from another plugin. |
-| `brewery:<brew_id>/<amount>` | Another brew. |
+| `brewery:<brew_id>/<amount>`       | Another brew.                |
 
 Example:
+
 ```yaml
 ingredients:
   - emerald/5 # 5 Emeralds.
@@ -84,11 +86,11 @@ Every message or text in the recipe configuration is going to be formatted using
 
 Here's a quick comparison of how MiniMessage looks compared to legacy formatting:
 
-| Format | Message |
-| - | - |
-| Legacy | `&2&lTest&r&#2080ff123` |
-| MiniMessage | `<dark_green><bold>Test<reset><#2080ff>123` |
-| MiniMessage (short) | `<dark_green><b>Test<r><#2080ff>123` |
+| Format              | Message                                     |
+| ------------------- | ------------------------------------------- |
+| Legacy              | `&2&lTest&r&#2080ff123`                     |
+| MiniMessage         | `<dark_green><bold>Test<reset><#2080ff>123` |
+| MiniMessage (short) | `<dark_green><b>Test<r><#2080ff>123`        |
 
 For more information on how to use MiniMessage, check out the [MiniMessage Format](https://docs.advntr.dev/minimessage/format) page.
 
@@ -107,7 +109,7 @@ A TheBrewingProject recipe is a YAML object that contains the following properti
 
 The `steps` property is a list of steps that the player must follow to create the brew.
 
-Each step has a `type`, which can be either `cook`, `mix`, `distill` or `age`.  
+Each step has a `type`, which can be either `cook`, `mix`, `distill` or `age`.
 
 A recipe can't include both `cook` and `mix` steps. This means a typical recipe will follow one of these two paths:
 

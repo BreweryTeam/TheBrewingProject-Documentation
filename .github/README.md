@@ -1,6 +1,6 @@
 # TheBrewingProject Documentation
 
-![TheBrewingProject Documentation - Welcome page](preview.png)
+![TheBrewingProject Documentation - Welcome page](img/preview.png)
 
 ## Running a development server
 
