@@ -216,3 +216,25 @@ TODO: Check again if optional or quality factored.
 - `lore` - lore of the brew as a list of strings. <Badge text="Quality Factored List" variant="tip" />
 - `glint` - whether to apply a glint effect to the potion item. Default to `false`.
 - `append-brew-info-lore` - you can decide whether the extra lore should be displayed for an item, this includes for example recipe hints such as cook time, and so on.
+- `custom-id` - You can tag the brew to be made to a custom item with the following tag. Currently no checks are done on enable for this, please test each item for now when doing this.
+
+TODO: Improve `custom-id` descriptions.
+
+#### Model properties
+
+You can customize the potion item model (basically texture) using these properties.
+
+TODO: Improve the descriptions, and link a tutorial or something (and check what these do exactly).
+
+- `custom-model-data` - Custom model data for the potion item.
+- `item-model` - Custom item model for the potion item (works on Minecraft 1.21.4+).
+
+### `alcohol`
+
+Exactly what it sounds like, the alcohol content of the brew.
+
+Positive values are for alcoholic brews, while negative values can decrease player's drunkenness.
+
+### `brew-difficulty`
+
+Define how hard it should be to brew a beverage.
