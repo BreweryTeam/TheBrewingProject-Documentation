@@ -1,0 +1,24 @@
+---
+title: "Placeholders"
+---
+
+TheBrewingProject supports both [PlaceholderAPI](https://github.com/PlaceholderAPI/PlaceholderAPI) and [MiniPlaceholders](https://modrinth.com/plugin/miniplaceholders) for displaying information.
+
+Please note that some plugins don't support plugins support PlaceholderAPI, or MiniPlaceholders.  
+To reliably check if a placeholder works, you can use the following commands:
+
+```yaml
+# For PlaceholderAPI
+/placeholderapi parse PLAYER PLACEHOLDER
+
+# For MiniPlaceholders
+/miniplaceholders parse PLAYER PLACEHOLDER
+```
+
+## Player Placeholders
+
+| PlaceholderAPI     | MiniPlaceholders   | Description                                                       |
+| ------------------ | ------------------ | ----------------------------------------------------------------- |
+| `%tbp_alcohol%`    | `<tbp_alcohol>`    | The player's current alcohol level.                               |
+| `%tbp_toxins%`     | `<tbp_toxins>`     | The player's current toxin level.                                 |
+| `%tbp_next_event%` | `<tbp_next_event>` | Name of the next event that will happen when the player is drunk. |
