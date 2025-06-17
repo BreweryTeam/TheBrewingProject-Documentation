@@ -116,28 +116,22 @@ The `steps` property is a list of steps that the player must follow to create th
 
 Each step has a `type`, which can be either `cook`, `mix`, `distill` or `age`.
 
-A recipe can't include both `cook` and `mix` steps. This means a typical recipe will follow one of these two paths:
+While steps can be defined in any order, cooking and mixing should always come before the others. Once a brew has been removed from the cauldron, it cannot be put back in.
+
+However, I strongly recommend doing it in a classic Brewery-like order, which is: cook or mix, then distill, and finally age.
 
 ```d2 sketch pad=50 animated
 direction: down
 
-# Cook
 cook: Cook
-distill_cook_path: Distill
-age_cook_path: Age
-
-cook -> distill_cook_path { style.animated: true }
-distill_cook_path -> age_cook_path { style.animated: true }
-cook -> age_cook_path { style.animated: true }
-
-# Mix
 mix: Mix
-distill_mix_path: Distill
-age_mix_path: Age
+distill: Distill
+age: Age
 
-mix -> distill_mix_path { style.animated: true }
-distill_mix_path -> age_mix_path { style.animated: true }
-mix -> age_mix_path { style.animated: true }
+cook -> distill
+mix -> distill
+distill -> age
+
 ```
 
 #### The `cook` Step
