@@ -17,10 +17,10 @@ const socials = config.social || [];
 
 <div class="sidebar-wrapper flex h-full flex-col gap-2">
     <div class="sidebar-header flex flex-shrink-0 flex-col gap-3 pt-3 pb-2">
-        <div class="flex items-center justify-start gap-2">
+        <a href="/" class="flex no-underline items-center justify-start gap-2">
             <Image src={logo} alt={"TheBrewingProject"} width={26} height={26} />
             <span class="text-white">TheBrewingProject</span>
-        </div>
+        </a>
 
         {shouldRenderSearch && <Search />}
     </div>
