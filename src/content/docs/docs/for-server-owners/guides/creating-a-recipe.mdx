@@ -9,10 +9,15 @@ import { Image } from "astro:assets";
 import customModelImage from "@/assets/docs/for-server-owners/guides/creating-a-recipe/custom-model.png";
 import messagesImage from "@/assets/docs/for-server-owners/guides/creating-a-recipe/messages.png";
 
+import beerNameExcellent from "@/assets/docs/for-server-owners/guides/creating-a-recipe/beer-name-excellent.png";
+import beerNameGood from "@/assets/docs/for-server-owners/guides/creating-a-recipe/beer-name-good.png";
+import beerNameBad from "@/assets/docs/for-server-owners/guides/creating-a-recipe/beer-name-bad.png";
+
 In this guide, you'll learn how to create a simple or more complex recipes for TheBrewingProject.
 
 <Aside variant="warning" title="YAML Ain't Markup Language">
-    Keep in mind that this guide expects you to have a basic understanding of the YAML format.
+  Keep in mind that this guide expects you to have a basic understanding of the YAML
+  format.
 </Aside>
 
 TODO: Move this to a better place:  
@@ -20,16 +25,35 @@ The recipes in TheBrewingProject are stored in `/plugins/TheBrewingProject/recip
 
 ## Fundamental concepts
 
-### Quality Factored Properties
+### The Quality System
 
-**Quality Factored Properties** allow you to define values or behaviors that adapt based on the achieved quality of the brew (Bad, Good or Excellent).  
-This makes searching for the perfect brew more rewarding as you can make the higher quality brews deliver better results or unique effects.
+TheBrewingProject features a quality system where every brew can turn out **Bad**, **Good**, or **Excellent**.  
+This makes the brewing process more engaging and rewarding for players.
+
+Quality Factored Properties are configuration options that allow you to define values or behaviors that change based on the final quality of the brew.
+
+#### Quality Factored Value
+
+A Quality Factored Value allows a single property, such as an item's name or a brew's alcohol content, to change depending on the quality.  
+You define this by providing three values separated by slashes in the format: `Bad/Good/Excellent`.
+
+##### Example
+
+```yaml
+name: Skunked Beer/<gold>Beer/<gradient:#ff8412:#ffdf29><b>Golden Lager
+```
+
+| Quality   | Resulting Name                                        |
+| --------- | ----------------------------------------------------- |
+| Excellent | <Image src={beerNameExcellent} alt="Golden Langer" /> |
+| Good      | <Image src={beerNameGood} alt="Beer" />               |
+| Bad       | <Image src={beerNameBad} alt="Skunked Beer" />        |
 
 ##### Quality Factored List
 
-A **Quality Factored List** lets you control which items are included in a list based on the brew's final quality. This is particularly useful for **Lores** and **Potion Effects**.
+A Quality Factored List allows you to conditionally include items in a list, such as lore lines or potion effects, based on the brew's quality.
 
-You define which items apply to which quality by prefixing them with `+` symbols. Here's how it works:
+You control this by prefixing list items with `+` symbols.
 
 | Prefix | Applies To Quality | Description                                                          |
 | ------ | ------------------ | -------------------------------------------------------------------- |
@@ -42,164 +66,58 @@ You define which items apply to which quality by prefixing them with `+` symbols
 
 ```yaml
 lore:
-    - +++ A rare, top-shelf beer, perfect for connoisseurs.
-    - ++ A decent brew, great for relaxing after a hard day's work.
-    - + A cloudy, sluggish mixture. It'll teach you a lesson about cutting corners when brewing.
-    - This message is always included, regardless of quality.
-```
-
-#### Quality Factored Value
-
-We can also make a single value to change with quality (name, message, alcohol level, etc.).  
-To do that provide three options separated by `/`: `Bad/Good/Excellent`.
-
-##### Example
-
-```yaml
-name: Skunked Beer/Beer/Golden Lager
+  - +++ <gold>A rare, top-shelf beer, perfect for connoisseurs.
+  - ++ <yellow>A decent brew, great for relaxing after a hard day's work.
+  - + <gray>A cloudy, sluggish mixture.
+  - <italic>This message is always included, regardless of quality.
 ```
 
 ### Ingredients
 
-An ingredient can be an item from Minecraft, an item from another plugin, or another brew.  
-See the [Integrations](/docs/for-server-owners/reference/integrations) page for a list of supported plugins.
+Ingredients are the building blocks of your recipes. An ingredient can be a vanilla Minecraft item, an item from another supported plugin, or even another brew created with TheBrewingProject.
 
-Ingredients are defined in the `ingredients` property of a recipe, and can be specified in the following formats, depending on what you want to do:
+Ingredients are defined as a list under the `ingredients` key in a brewing step. The format for defining an ingredient depends on the type of item:
 
-| Format                             | Description                  |
-| ---------------------------------- | ---------------------------- |
-| `<item_id>/<amount>`               | A Minecraft item.            |
-| `<plugin_name>:<item_id>/<amount>` | An item from another plugin. |
-| `brewery:<brew_id>/<amount>`       | Another brew.                |
+| Format                             | Description                                                                                           |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `<item_id>/<amount>`               | A Minecraft item.                                                                                     |
+| `<plugin_name>:<item_id>/<amount>` | An item from another plugin. See [Integrations](/docs/for-server-owners/reference/integrations) page. |
+| `brewery:<brew_id>/<amount>`       | Another brew from TheBrewingProject.                                                                  |
 
 Example:
 
 ```yaml
 ingredients:
-    - emerald/5 # 5 Emeralds.
-    - nexo:infused_golden_apple/2 # 2 Infused Golden Apples from the Nexo plugin.
-    - brewery:beer/1 # 1 Beer from TheBrewingProject.
+  - emerald/5 # 5 Emeralds.
+  - nexo:infused_golden_apple/2 # 2 Infused Golden Apples from the Nexo plugin.
+  - brewery:beer/1 # 1 Beer from TheBrewingProject.
 ```
 
-### MiniMessage
+### MiniMessage Formatting
 
 Every message or text in the recipe configuration is going to be formatted using MiniMessage.  
-**There's no support for legacy formatting codes!**
+**Legacy formatting codes (e.g., &a, &l) are not supported.**
 
-Here's a quick comparison of how MiniMessage looks compared to legacy formatting:
+| Format                 | Message                                     |
+| ---------------------- | ------------------------------------------- |
+| Legacy (Not Supported) | `&2&lTest&r&#2080ff123`                     |
+| MiniMessage            | `<dark_green><bold>Test<reset><#2080ff>123` |
+| MiniMessage (short)    | `<dark_green><b>Test<r><#2080ff>123`        |
 
-| Format              | Message                                     |
-| ------------------- | ------------------------------------------- |
-| Legacy              | `&2&lTest&r&#2080ff123`                     |
-| MiniMessage         | `<dark_green><bold>Test<reset><#2080ff>123` |
-| MiniMessage (short) | `<dark_green><b>Test<r><#2080ff>123`        |
-
-For more information on how to use MiniMessage, check out the [MiniMessage Format](https://docs.advntr.dev/minimessage/format) page.
+For a complete guide on syntax and features, please refer to the official [MiniMessage Format Documentation](https://docs.advntr.dev/minimessage/format).
 
 ## Recipe Structure
 
-A TheBrewingProject recipe is a YAML object that contains the following properties (see below for more details):
+Recipes are defined as entries in the `recipes.yml` file. Each recipe has an id and a set of properties that define its final product and the process to create it.
 
 | Property                                  | Description                                                                                                                                               | Required |
 | ----------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
 | [`steps`](#steps)                         | The instructions for brewing your drink.                                                                                                                  | **Yes**  |
-| [`potion-attributes`](#potion-attributes) | Properties of the final brew.                                                                                                                             | **Yes**  |
+| [`potion-attributes`](#potion-attributes) | Defines the appearance and metadata of the final potion item.                                                                                             | **Yes**  |
 | [`brew-difficulty`](#brew-difficulty)     | How hard it should be to make the brew.                                                                                                                   | No       |
 | [`alcohol`](#alcohol)                     | The alcohol content of the brew. The value can be anything, but will realistically be truncated between -100 and 100. _This is a Quality Factored Value._ | No       |
-| [`effects`](#effects)                     | Potion effects that the brew will apply to the player when consumed.                                                                                      | No       |
+| [`effects`](#effects)                     | Potion effects applied to the player after drinking the brew.                                                                                               | No       |
 | [`messages`](#messages)                   | Messages that can be displayed after the player drinks the brew.                                                                                          | No       |
-
-### `steps` - TO REVIEW
-
-The `steps` property is a list of steps that the player must follow to create the brew.
-
-Each step has a `type`, which can be either `cook`, `mix`, `distill` or `age`.
-
-While steps can be defined in any order, cooking and mixing should always come before the others. Once a brew has been removed from the cauldron, it cannot be put back in.
-
-However, I strongly recommend doing it in a classic Brewery-like order, which is: cook or mix, then distill, and finally age.
-
-```d2 sketch pad=50 animated
-direction: down
-
-cook: Cook
-mix: Mix
-distill: Distill
-age: Age
-
-cook -> distill
-mix -> distill
-distill -> age
-
-```
-
-#### The `cook` Step
-
-The `cook` step requires a heat source underneath a cauldron, such as a furnace or a campfire.
-
-It has 2 mandatory properties: `ingredients` and `cook-time`,  
-and one optional property: `cauldron-type`.
-
-```yaml
-- type: cook
-  # Accepted cauldron types are `water`, `lava`, and `snow`.
-  # If not specified, it defaults to `water`.
-  cauldron-type: water
-
-  # How long the cooking will take, in minutes.
-  cook-time: 15
-
-  # The ingredients needed for the cook step.
-  ingredients:
-      - Potato/10 # 10 Potatoes
-      - nexo:pomegranate/5 # 5 Pomegranates from the Nexo plugin
-```
-
-#### The `mix` Step
-
-The `mix` step works similarly to the `cook` step, but it doesn't require a cauldron or a heat source.
-
-It has 2 mandatory properties: `ingredients` and `mix-time`.
-
-```yaml
-- type: mix
-  # How long the mixing will take, in minutes.
-  mix-time: 5
-
-  # The ingredients needed for the brew.
-  ingredients:
-      - Apple/3 # 3 Apples
-```
-
-#### The `distill` Step
-
-Useful step for many recipes, although not required, [happens in a distillery](/docs/for-players/guides/distilling)
-
-It has 1 mandatory property: `runs`.
-
-```yaml
-- type: distill
-
-  # How many times the brew needs to be distilled.
-  runs: 3
-```
-
-#### The `age` Step
-
-The `age` step means the recipe needs to be aged in a barrel.
-
-It has 2 mandatory properties: `barrel-type` and `age-years`.
-
-```yaml
-- type: age
-
-  # The type of barrel to use for aging.
-  # Includes copper and all the wood types.
-  barrel-type: oak
-
-  # How long the aging will take, in game days.
-  age-years: 2
-```
 
 ### `potion-attributes` - WAITING ON MERGE
 
@@ -218,20 +136,117 @@ Available properties are:
 
 #### Model attributes
 
-Model attributes let you customize how your potion item appears in-game.  
-Particularly useful with custom resource packs.
+You can change the in-game appearance of your brew item using a resource pack and custom model data.
 
-- `item-model` - Allows to define custom models. <Badge text="Optional" variant="tip" />
-- `custom-model-data` - The old way of defining custom models. **Not recommended on 1.21.4+** <Badge text="Optional" variant="tip" />
+- `item-model` - The modern way to define custom models (1.21.4+). **Recommended method**. <Badge text="Optional" variant="tip" />
+- `custom-model-data` - The number based legacy way. <Badge text="Optional" variant="tip" />
 
-If you want to use custom models, you can learn more about them here:
+For guides on creating custom models, see these resources:
 
-[New format (item-model)](https://github.com/Simplexity-Development/Custom_Model_Data_Guide)  
-[Old format (custom-model-data)](https://github.com/Simplexity-Development/Custom_Model_Data_Guide/tree/26b269ffa0f4a99646f4969de7a2880ae4f677a3)
+[New `item-model` format](https://github.com/Simplexity-Development/Custom_Model_Data_Guide)  
+[Old `custom-model-data` format](https://github.com/Simplexity-Development/Custom_Model_Data_Guide/tree/26b269ffa0f4a99646f4969de7a2880ae4f677a3)
 
-You can also use Minecraft's models, here's how a beer with `item-model: minecraft:grass_block` will look in-game:
+##### Example
 
-<Image src={customModelImage} alt="Image showing how a beer with item-model: minecraft:grass_block will look in-game" />
+```yaml
+potion-attributes:
+  # ...
+  item-model: minecraft:grass_block
+```
+
+This would make your brew appear as a Grass Block:
+
+<Image
+  src={customModelImage}
+  alt="Image showing how a beer with item-model: minecraft:grass_block will look in-game"
+/>
+
+
+### `steps` - TO REVIEW
+
+The `steps` property is a list of steps that the player must follow to create the brew.
+
+The available step types are `cook`, `mix`, `distill`, and `age`.
+
+While steps can be defined in any order, the logical flow of brewing must be respected.  
+Cooking and mixing must happen first in a cauldron. Once the brew is removed from the cauldron (by bottling it), it can be distilled or aged, but not cooked or mixed again.
+
+The recommended and the BreweryX order is: cook/mix -> distill -> age.
+
+```d2 sketch pad=50 animated
+direction: down
+
+cook: Cook (in a Cauldron)
+mix: Mix (in a Cauldron)
+distill: Distill (in a Distillery)
+age: Age (in a Barrel)
+
+cook -> distill
+mix -> distill
+distill -> age
+```
+
+#### The `cook` Step
+
+The `cook` step requires a heat source underneath a cauldron, such as a furnace or a campfire.
+
+- `ingredients`: **(Required)** A list of ingredients that are needed for the cooking step.
+- `cook-time`: **(Required)** The required cooking duration in minutes.
+- `cauldron-type`: (Optional) The type of liquid required in the cauldron. Can be `water`, `lava`, or `snow`. Defaults to `water`.
+
+```yaml
+- type: cook
+  cauldron-type: water
+  cook-time: 15
+  ingredients:
+    - potato/10
+    - nexo:pomegranate/5
+```
+
+#### The `mix` Step
+
+The `mix` step is similar to `cook` but does not require a heat source, and does not have a `cauldron-type` property.
+
+- `ingredients`: **(Required)** A list of ingredients that are needed for the mixing step.
+- `mix-time`: **(Required)** The required mixing duration in minutes.
+
+```yaml
+- type: mix
+  mix-time: 5
+  ingredients:
+    - apple/3
+    - sugar_cane/8
+```
+
+#### The `distill` Step
+
+Useful step for many recipes, although not required, [happens in a distillery](/docs/for-players/guides/distilling)
+
+- `runs`: *(Required)** The number of times the brew must be distilled.
+
+```yaml
+- type: distill
+  runs: 3
+```
+
+#### The `age` Step
+
+The `age` step requires the brew to be placed in a barrel for a specific duration.
+
+- `barrel-type`: **(Required)** The type of wood for the barrel. Accepts all vanilla wood types (e.g., oak, spruce, birch, acacia, etc.) and copper.
+- `age-years`: **(Required)** The aging duration in TheBrewingProject years, which can be configured in the plugin's settings.  
+  The default is 24000 ticks, which is equivalent to 1 Minecraft day. TODO: Link to config page.
+
+```yaml
+- type: age
+
+  # The type of barrel to use for aging.
+  # Includes copper and all the wood types.
+  barrel-type: oak
+
+  # How long the aging will take, in game days.
+  age-years: 2
+```
 
 ### `alcohol` - TODO
 
@@ -252,14 +267,14 @@ You can define each message as a Quality Factored Value or a simple string.
 
 ```yaml
 messages:
-    # action bar message
-    action-bar: Bad action bar message/Good one/Excellent one
+  # action bar message
+  action-bar: Bad action bar message/Good one/Excellent one
 
-    # title
-    title: A title
+  # title
+  title: A title
 
-    # chat message
-    message: <gold>Look, MiniMessage!
+  # chat message
+  message: <gold>Look, MiniMessage!
 ```
 
 Here's how the example above looks in the game (excellent quality brew):
