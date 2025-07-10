@@ -12,8 +12,7 @@ import messagesImage from "@/assets/docs/for-server-owners/guides/creating-a-rec
 In this guide, you'll learn how to create a simple or more complex recipes for TheBrewingProject.
 
 <Aside variant="warning" title="YAML Ain't Markup Language">
-  Keep in mind that this guide expects you to have a basic understanding of the YAML
-  format.
+    Keep in mind that this guide expects you to have a basic understanding of the YAML format.
 </Aside>
 
 TODO: Move this to a better place:  
@@ -43,10 +42,10 @@ You define which items apply to which quality by prefixing them with `+` symbols
 
 ```yaml
 lore:
-  - +++ A rare, top-shelf beer, perfect for connoisseurs.
-  - ++ A decent brew, great for relaxing after a hard day's work.
-  - + A cloudy, sluggish mixture. It'll teach you a lesson about cutting corners when brewing.
-  - This message is always included, regardless of quality.
+    - +++ A rare, top-shelf beer, perfect for connoisseurs.
+    - ++ A decent brew, great for relaxing after a hard day's work.
+    - + A cloudy, sluggish mixture. It'll teach you a lesson about cutting corners when brewing.
+    - This message is always included, regardless of quality.
 ```
 
 #### Quality Factored Value
@@ -77,9 +76,9 @@ Example:
 
 ```yaml
 ingredients:
-  - emerald/5 # 5 Emeralds.
-  - nexo:infused_golden_apple/2 # 2 Infused Golden Apples from the Nexo plugin.
-  - brewery:beer/1 # 1 Beer from TheBrewingProject.
+    - emerald/5 # 5 Emeralds.
+    - nexo:infused_golden_apple/2 # 2 Infused Golden Apples from the Nexo plugin.
+    - brewery:beer/1 # 1 Beer from TheBrewingProject.
 ```
 
 ### MiniMessage
@@ -152,8 +151,8 @@ and one optional property: `cauldron-type`.
 
   # The ingredients needed for the cook step.
   ingredients:
-    - Potato/10 # 10 Potatoes
-    - nexo:pomegranate/5 # 5 Pomegranates from the Nexo plugin
+      - Potato/10 # 10 Potatoes
+      - nexo:pomegranate/5 # 5 Pomegranates from the Nexo plugin
 ```
 
 #### The `mix` Step
@@ -169,7 +168,7 @@ It has 2 mandatory properties: `ingredients` and `mix-time`.
 
   # The ingredients needed for the brew.
   ingredients:
-    - Apple/3 # 3 Apples
+      - Apple/3 # 3 Apples
 ```
 
 #### The `distill` Step
@@ -232,10 +231,7 @@ If you want to use custom models, you can learn more about them here:
 
 You can also use Minecraft's models, here's how a beer with `item-model: minecraft:grass_block` will look in-game:
 
-<Image
-  src={customModelImage}
-  alt="Image showing how a beer with item-model: minecraft:grass_block will look in-game"
-/>
+<Image src={customModelImage} alt="Image showing how a beer with item-model: minecraft:grass_block will look in-game" />
 
 ### `alcohol` - TODO
 
@@ -256,14 +252,14 @@ You can define each message as a Quality Factored Value or a simple string.
 
 ```yaml
 messages:
-  # action bar message
-  action-bar: Bad action bar message/Good one/Excellent one
+    # action bar message
+    action-bar: Bad action bar message/Good one/Excellent one
 
-  # title
-  title: A title
+    # title
+    title: A title
 
-  # chat message
-  message: <gold>Look, MiniMessage!
+    # chat message
+    message: <gold>Look, MiniMessage!
 ```
 
 Here's how the example above looks in the game (excellent quality brew):
