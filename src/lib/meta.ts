@@ -2,7 +2,6 @@ namespace meta {
     export const download = {
         modrinth: "https://modrinth.com/plugin/thebrewingproject",
         hangar: "https://hangar.papermc.io/BreweryTeam/TheBrewingProject",
-        githubReleases: "https://github.com/BreweryTeam/TheBrewingProject/releases",
         jenkins: "https://ci.breweryteam.dev/job/TheBrewingProject/",
     };
 
