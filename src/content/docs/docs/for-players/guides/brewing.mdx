@@ -2,58 +2,45 @@
 title: "Creating Brews (temporary)"
 ---
 
-# Guide copied from the Hangar Docs
+import { Image } from "astro:assets";
+import Aside from "@/components/docs/Aside.astro";
 
-In The Brewing Project, a brew can created by processing it through a multiple different structures. To succesfully complete a brew, it has to have followed the right processing steps, such that it is close enough to one of the many templates unique to the server.
+import boilerCookingAndMixingImage from "@/assets/docs/for-players/guides/brewing/boiler-cooking-and-mixing.png";
+import cookingMixingIngredientsVideo from "@/assets/docs/for-players/guides/brewing/cooking-mixing-ingredients.mp4";
 
-The inital step when brewing is always going to be to boil/ferment the ingredients (see the "Creating a Boiler section"). After that you can distill or age the drink, which is completely recipe dependant. Note that all processes are either time dependant or cycle dependant.
+In The Brewing Project, a brew can created by processing it through different structures.
 
-## Boiling/Fermenting/mixing ingredients
+To succesfully complete a brew, it has to have followed the right steps, such that it is close enough to one of the many recipes created by the server's administration, **that's why the recipes usually differ from server to server!**
 
-You simply need to right click a cauldron with a valid ingredient in hand, and it will be added to the ingredients. The ingredients needs to be boiled/fermented/mixed for a while depending on the recipe, keep track of the time!
+<Aside title="Boiling/mixing/fermenting/cooking | pot/boiler/cauldron/cooker" variant="info">
 
-Note that a recipe outcome will be different depending on whether the cauldron is heated or not!
+There are a lot of different terms used in the Brewery community to describe processing of the ingredients, and the structure used to do so.
 
-### A video on the creation of a boiler:
+This isn't a huge problem in BreweryX, but TBP introduced mixing and cooking as separate processes, which can be confusing.
 
-<iframe
-    className="h-96 w-full"
-    src="https://www.youtube.com/embed/ngmKNNYCwEw"
-    title="The Brewing Project - Create Ingredient Boiler"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    referrerpolicy="strict-origin-when-cross-origin"
-    allowfullscreen
-></iframe>
+This guide will use the following terms:
 
-## Aging a drink
+- Cooking: The process of putting ingredients into a boiler with a heat source.
+- Mixing: The process of putting ingredients into a boiler without a heat source.
+- Boiler: The structure used to cook or mix ingredients. (cauldron with water)
 
-After putting the drink into the barrel, it will start aging. This process is very slow, and the time can vary depending on the recipe. You can build both small and large barrels, as in BreweryX. Note that a large barrel requires legs, and a small barrel is 2x2x3 in dimension instead.
+</Aside>
 
-### A video on the creation of a small barrel.
+The inital step when brewing is always going to be to cook/mix the ingredients in a boiler.
 
-<iframe
-    className="h-96 w-full"
-    src="https://www.youtube.com/embed/s339ebqoBIg"
-    title="The Brewing Project - Creating a small barrel"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    referrerpolicy="strict-origin-when-cross-origin"
-    allowfullscreen
-></iframe>
+## Cooking/Mixing ingredients
 
-## Distilling a drink
+To cook or mix ingredients, you first need to create a boiler. A boiler is created by simply putting your ingredients into a cauldron with water (by right-clicking).  
+Most recipes will also require a heat source (like a campfire, magma block, or fire) placed directly underneath the boiler.
 
-A distillery has two inventories, one for the output (distillate) and another for the input (mixture). Simply put the brew in the mixture inventory and wait a while. After about a minute, the brew will be distilled, and can be retrieved from the distillate inventory. The amount of times a brew needs to be distilled depends on the recipe.
+<Image src={boilerCookingAndMixingImage} alt="Boiler for cooking and mixing" />
 
-### A video on the creation of a distillery
+As soon as the ingredients are in the boiler, it will start processing them. While it does that, you should see particles appearing above the cauldron *(tip: the particles will change color depending on how close are you to a defined recipe or the progress of making the brew)*.
 
-<iframe
-    className="h-96 w-full"
-    src="https://www.youtube.com/embed/ilE6ZRveaWA"
-    title="The Brewing Project - Creating a distillery"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    referrerpolicy="strict-origin-when-cross-origin"
-    allowfullscreen
-></iframe>
+You can check for how long has the boiler been processing the ingredients by right-clicking it with a clock.
+
+<video muted loop autoPlay>
+    <source src={cookingMixingIngredientsVideo} type="video/mp4" />
+</video>
+
+You might wonder how long it takes for the ingredients to be processed. The time, the amount of ingredients and the ingredients themselves, depend on the recipe. There is no true answer to this question, so you'll just have to experiment :D
