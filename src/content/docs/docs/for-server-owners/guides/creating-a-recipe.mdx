@@ -6,6 +6,8 @@ import Aside from "@/components/docs/Aside.astro";
 import { Badge } from "@astrojs/starlight/components";
 import { Image } from "astro:assets";
 
+import { PotionAttributesConfig } from "@/components/docs/config/config/creating-a-recipe/potion-attributes"
+
 import customModelImage from "@/assets/docs/for-server-owners/guides/creating-a-recipe/custom-model.png";
 import messagesImage from "@/assets/docs/for-server-owners/guides/creating-a-recipe/messages.png";
 
@@ -119,48 +121,15 @@ Recipes are defined as entries in the `recipes.yml` file. Each recipe has an id 
 | [`effects`](#effects)                     | Potion effects applied to the player after drinking the brew.                                                                                               | No       |
 | [`messages`](#messages)                   | Messages that can be displayed after the player drinks the brew.                                                                                          | No       |
 
-### `potion-attributes` - WAITING ON MERGE
-
-> Waiting on [expressive-code#add-annotation-comments](https://github.com/expressive-code/expressive-code/tree/add-annotation-comments) to get merged 🙏.
+### `potion-attributes`
 
 Potion attributes basically define the actual potion item that will be created as the output of a recipe.
 
-Available properties are:
+<PotionAttributesConfig client:only="react" />
 
-- `name` - the name of your masterpiece. <Badge text="Quality Factored Value" variant="tip" />
-- `color` - the color of the potion. This can be either a color from the [`Color`](https://jd.papermc.io/paper/1.21.5/org/bukkit/Color.html) enum or a hex color code (without the `#` prefix). <Badge text="Quality Factored Value" variant="tip" />
-- `lore` - lore of the brew as a list of strings. <Badge text="Quality Factored List" variant="tip" />
-- `glint` - whether to apply a glint effect to the potion item. Default to `false`. <Badge text="Quality Factored Value" variant="tip" /> <Badge text="Optional" variant="tip" />
-- `append-brew-info-lore` - you can decide whether the extra lore should be displayed for an item, this includes for example recipe hints such as cook time, and so on. <Badge text="Quality Factored Value" variant="tip" /> <Badge text="Optional" variant="tip" />
-- `custom-id` - You can tag the brew to be made to a custom item with the following tag. Currently no checks are done on enable for this, please test each item for now when doing this. <Badge text="Quality Factored Value" variant="tip" /> <Badge text="Optional" variant="tip" />
+#### Custom models
 
-#### Model attributes
-
-You can change the in-game appearance of your brew item using a resource pack and custom model data.
-
-- `item-model` - The modern way to define custom models (1.21.4+). **Recommended method**. <Badge text="Optional" variant="tip" />
-- `custom-model-data` - The number based legacy way. <Badge text="Optional" variant="tip" />
-
-For guides on creating custom models, see these resources:
-
-[New `item-model` format](https://github.com/Simplexity-Development/Custom_Model_Data_Guide)  
-[Old `custom-model-data` format](https://github.com/Simplexity-Development/Custom_Model_Data_Guide/tree/26b269ffa0f4a99646f4969de7a2880ae4f677a3)
-
-##### Example
-
-```yaml
-potion-attributes:
-  # ...
-  item-model: minecraft:grass_block
-```
-
-This would make your brew appear as a Grass Block:
-
-<Image
-  src={customModelImage}
-  alt="Image showing how a beer with item-model: minecraft:grass_block will look in-game"
-/>
-
+Custom models will be in a separate tutorial, which more in-depth explanation.
 
 ### `steps` - TO REVIEW
 

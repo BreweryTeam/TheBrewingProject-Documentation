@@ -1,0 +1,23 @@
+:root {
+    --ct-config-color-number: #b5cea8;
+    --ct-config-color-string: #ce9178;
+    --ct-config-color-common: #599ed7; /* For: keys, booleans, null */
+
+    --ct-config-color-boolean: var(--ct-color-common);
+    --ct-config-color-null: var(--ct-color-common);
+    --ct-config-color-key: var(--ct-color-common);
+
+    --ct-color-border: #27272a;
+}
+
+.configTree {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    overflow-x: scroll;
+    border-radius: 0.5rem;
+    border: 1px solid var(--ct-color-border);
+    background-color: var(--code-background);
+    padding: 0.5rem 0.75rem;
+    font-family: monospace;
+    white-space: nowrap;
+}
