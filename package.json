@@ -14,7 +14,7 @@
         "@ariakit/react": "^0.4.17",
         "@astrojs/check": "^0.9.4",
         "@astrojs/react": "^4.3.0",
-        "@astrojs/starlight": "https://gitpkg.vercel.app/Nadwey/starlight/packages/starlight?main",
+        "@astrojs/starlight": "^0.35.2",
         "@astrojs/starlight-tailwind": "^4.0.1",
         "@expressive-code/plugin-line-numbers": "^0.41.3",
         "@lucide/astro": "^0.526.0",
