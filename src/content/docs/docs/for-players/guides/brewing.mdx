@@ -7,6 +7,10 @@ import Aside from "@/components/docs/Aside.astro";
 
 import boilerCookingAndMixingImage from "@/assets/docs/for-players/guides/brewing/boiler-cooking-and-mixing.png";
 import cookingMixingIngredientsVideo from "@/assets/docs/for-players/guides/brewing/cooking-mixing-ingredients.mp4";
+import extractBrewsVideo from "@/assets/docs/for-players/guides/brewing/extract-brews.mp4";
+
+import buildingADistilleryVideo from "@/assets/docs/for-players/guides/brewing/building-a-distillery.mp4";
+import distilleryInputsAndOutputsImage from "@/assets/docs/for-players/guides/brewing/distillery-inputs-and-outputs.png";
 
 In The Brewing Project, a brew can created by processing it through different structures.
 
@@ -28,12 +32,30 @@ Once the ingredients are in the boiler, cooking or mixing will begin. While it d
 
 You can check how long the boiler has been processing the ingredients by right-clicking it with a clock.
 
-<video muted loop autoPlay>
+<video muted controls>
     <source src={cookingMixingIngredientsVideo} type="video/mp4" />
 </video>
 
 So, how long does it take and what ingredients should you use? That depends entirely on the server's recipes, and discovering that for yourself is the whole point of TBP, so you just have to experiment :D
 
+When you feel like the brew is ready, right-click the cauldron with empty bottles to collect it.
+
+<video muted controls>
+    <source src={extractBrewsVideo} type="video/mp4" />
+</video>
+
 ## Distilling - TODO
+
+### Building a Distillery
+
+To build a distillery, you will need 3 decorated pots and 3 bamboo fences.
+
+Place them like in the video below:
+
+<video muted controls>
+    <source src={buildingADistilleryVideo} type="video/mp4" />
+</video>
+
+<Image src={distilleryInputsAndOutputsImage} alt="Distillery inputs and outputs" />
 
 ## Aging - TODO
