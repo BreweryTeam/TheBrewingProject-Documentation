@@ -1,0 +1,103 @@
+---
+title: "1. Basics"
+sidebar:
+  order: 1
+---
+
+import Aside from "@/components/docs/aside/Aside.astro";
+import Badge from "@/components/docs/badge/Badge.astro";
+import { Image } from "astro:assets";
+
+import beerNameExcellent from "@/assets/docs/for-server-owners/guides/creating-a-recipe/beer-name-excellent.png";
+import beerNameGood from "@/assets/docs/for-server-owners/guides/creating-a-recipe/beer-name-good.png";
+import beerNameBad from "@/assets/docs/for-server-owners/guides/creating-a-recipe/beer-name-bad.png";
+
+In this guide, you'll learn how to create a simple recipe for TheBrewingProject.
+
+<Aside variant="warning" title="YAML Ain't Markup Language">
+  Keep in mind that this guide expects you to have a basic understanding of the YAML
+  format.
+</Aside>
+
+## Basics
+
+### The Quality System
+
+TheBrewingProject features a quality system where every brew can turn out **Bad**, **Good**, or **Excellent**.  
+This makes the brewing process more engaging and rewarding for players.
+
+Quality Factored Properties are configuration options that allow you to define values or behaviors that change based on the final quality of the brew.
+
+#### Quality Factored Value
+
+A Quality Factored Value allows a single property, such as an item's name or a brew's alcohol content, to change depending on the quality.  
+You define this by providing three values separated by slashes in the format: `Bad/Good/Excellent`.
+
+##### Example
+
+```yaml
+name: Skunked Beer/<gold>Beer/<gradient:#ff8412:#ffdf29><b>Golden Lager
+```
+
+| Quality   | Resulting Name                                        |
+| --------- | ----------------------------------------------------- |
+| Excellent | <Image src={beerNameExcellent} alt="Golden Langer" /> |
+| Good      | <Image src={beerNameGood} alt="Beer" />               |
+| Bad       | <Image src={beerNameBad} alt="Skunked Beer" />        |
+
+##### Quality Factored List
+
+A Quality Factored List allows you to conditionally include items in a list, such as lore lines or potion effects, based on the brew's quality.
+
+You control this by prefixing list items with `+` symbols.
+
+| Prefix | Applies To Quality | Description                                                          |
+| ------ | ------------------ | -------------------------------------------------------------------- |
+| `+++`  | Excellent only     | The item is included _only_ if the brew is of Excellent quality.     |
+| `++`   | Good only          | The item is included _only_ if the brew is of Good quality.          |
+| `+`    | Bad only           | The item is included _only_ if the brew is of Bad quality.           |
+| (none) | All Qualities      | The item is included regardless of the brew's quality (the default). |
+
+##### Example
+
+```yaml
+lore:
+  - +++ <gold>A rare, top-shelf beer, perfect for connoisseurs.
+  - ++ <yellow>A decent brew, great for relaxing after a hard day's work.
+  - + <gray>A cloudy, sluggish mixture.
+  - <italic>This message is always included, regardless of quality.
+```
+
+### Ingredients
+
+Ingredients are the building blocks of your recipes. An ingredient can be a vanilla Minecraft item, an item from another supported plugin, or even another brew created with TheBrewingProject.
+
+Ingredients are defined as a list under the `ingredients` key in a brewing step. The format for defining an ingredient depends on the type of item:
+
+| Format                             | Description                                                                                           |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `<item_id>/<amount>`               | A Minecraft item.                                                                                     |
+| `<plugin_name>:<item_id>/<amount>` | An item from another plugin. See [Integrations](/docs/for-server-owners/reference/integrations) page. |
+| `brewery:<brew_id>/<amount>`       | Another brew from TheBrewingProject.                                                                  |
+
+Example:
+
+```yaml
+ingredients:
+  - emerald/5 # 5 Emeralds.
+  - nexo:infused_golden_apple/2 # 2 Infused Golden Apples from the Nexo plugin.
+  - brewery:beer/1 # 1 Beer from TheBrewingProject.
+```
+
+### MiniMessage Formatting
+
+Every message or text in the recipe configuration is going to be formatted using MiniMessage.  
+**Legacy formatting codes (e.g., &a, §l) are not supported.**
+
+| Format                 | Message                                     |
+| ---------------------- | ------------------------------------------- |
+| Legacy (Not Supported) | `&2&lTest&r&#2080ff123`                     |
+| MiniMessage            | `<dark_green><bold>Test<reset><#2080ff>123` |
+| MiniMessage - short    | `<dark_green><b>Test<r><#2080ff>123`        |
+
+For a complete guide on syntax and features, please refer to the official [MiniMessage Format Documentation](https://docs.advntr.dev/minimessage/format).

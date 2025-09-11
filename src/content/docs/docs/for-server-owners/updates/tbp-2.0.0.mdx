@@ -1,0 +1,11 @@
+---
+title: "TheBrewingProject 2.0.0"
+---
+
+## Breaking changes from version 1.* <a name="breaking-changes"></a>
+
+Here's a list of all the breaking changes that **will have no migration**. Note that it's only on the configuration end, nothing database related. **You can simply just wipe all configuration files if you already have the default configuration**
+* **Translations** have changed to a new simpler file format, see the `.properties` files in the `/locale` folder.
+* **Random drunken events** (Those you get when for example alcohol is above a set margin) have changed the format for probability of event occurrence, this means that you have to redefine the probabilities for all events in the `custom-events` section, which you can find in the `events.yml` file
+* **Recipes** format have changed somewhat. You need to replace the keyword `alcohol` with `modifiers.alcohol`, this can be done with most text editors.
+* **Consumables** that can change your modifiers (for example bread) have changed location in the configuration from `config.yml` to `modifiers.yml`

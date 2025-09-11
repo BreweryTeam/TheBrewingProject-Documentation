@@ -44,8 +44,14 @@ export default defineConfig({
                         },
                         {
                             label: "Guides",
-                            autogenerate: { directory: "docs/for-server-owners/guides/" },
                             collapsed: true,
+                            items: [
+                                {
+                                    label: "Creating a Recipe",
+                                    autogenerate: { directory: "docs/for-server-owners/guides/creating-a-recipe/" },
+                                    collapsed: true,
+                                },
+                            ],
                         },
                         {
                             label: "Reference",

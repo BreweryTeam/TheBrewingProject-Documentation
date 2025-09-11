@@ -1,0 +1,55 @@
+---
+enum BadgeVariant {
+    Info = "info",
+    Success = "success",
+    Warning = "warning",
+    Error = "error"
+}
+
+interface Props {
+    variant?: BadgeVariant;
+}
+
+const { variant = BadgeVariant.Success } = Astro.props;
+---
+
+<div class={`badge ${variant}`}>
+    <span class="circle"></span>
+    <slot />
+</div>
+
+<style>
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
+    background-color: var(--sl-color-gray-6);
+    border: 1px solid var(--sl-color-gray-5);
+    font-size: 0.8rem;
+    font-weight: normal;
+}
+
+.circle {
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-right: 0.1rem;
+    border-radius: 50%;
+}
+
+.badge.success .circle {
+    background-color: var(--color-green-500);
+}
+
+.badge.warning .circle {
+    background-color: var(--color-yellow-500);
+}
+
+.badge.error .circle {
+    background-color: var(--color-red-500);
+}
+
+.badge.info .circle {
+    background-color: var(--color-blue-500);
+}
+</style>

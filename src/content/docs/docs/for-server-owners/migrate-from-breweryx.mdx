@@ -1,0 +1,31 @@
+---
+title: "Migrating from BreweryX"
+---
+
+# Migration from BreweryX
+
+You can now migrate from BreweryX, this is how it's done:
+
+- Obtain [this](https://ci.breweryteam.dev/job/BreweryTeam/job/TheBrewingProject/job/master/18/artifact/migration/build/libs/TheBrewingProjectMigration-2.0.0-beta.0-master-52fc05.jar) migration plugin file
+- Add that plugin including TheBrewingProject 2.0.0 into your `/plugins` folder
+- Leave the latest BreweryX plugin version available in the `/plugins` folder (IMPORTANT)
+- You can now run your server
+- After the server has started, stop the server and remove both BreweryX and the migration plugin
+
+### What will be migrated?
+
+- Barrels and only brew contents inside barrels (This will not apply to Minecraft barrels), any non brews will be wiped from existence
+- Cauldrons with their brew progress and ingredients
+- Everything in the `recipes.yml` file, except for:
+  - Most ingredient defined in `custom-items.yml`
+  - Other brews as ingredients might also break, as the brew display name can no longer be used as a key. 
+
+Direct command definitions for recipes are no longer possible in TheBrewingProject, these will automatically be migrated over to event definitions, see `events.yml`
+
+### What will not be migrated?
+
+Everything not listed in the above section will not be migrated, this includes:
+- Brews in other locations than barrels. **The data format is completely different for brews, they can not be read without the BreweryX API!**
+- `config.yml`
+- `custom-items.yml`
+- `cauldron.yml`

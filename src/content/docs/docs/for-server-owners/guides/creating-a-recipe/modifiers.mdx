@@ -1,0 +1,25 @@
+---
+title: "X. Modifiers"
+---
+
+import Badge from "@/components/docs/badge/Badge.astro";
+
+<Badge>Since 2.0.0</Badge>
+
+Modifiers are time-based stats that describe a player's current state (e.g. alcohol, alcohol addiction, toxins). They can be changed by consuming brews or configured consumables (milk, for example). 
+
+Modifiers have the following properties:
+| Property | Description |
+| -------- | ----------- |
+| `name`| The name of the modifier (which also acts as an ID) |
+
+```d2 sketch pad=50 animated
+direction: down
+
+recipe: Recipe
+event: Event
+modifier: Modifier
+
+recipe -> modifier
+event -> modifier
+```
