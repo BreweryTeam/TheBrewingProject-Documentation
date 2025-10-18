@@ -43,8 +43,8 @@ export default defineConfig({
                             link: "docs/for-server-owners/install",
                         },
                         {
-                            label: "How To's",
-                            autogenerate: { directory: "docs/for-server-owners/how-to/" },
+                            label: "Recipe How To's",
+                            autogenerate: { directory: "docs/for-server-owners/recipe-how-to/" },
                             collapsed: true,
                         },
                         {

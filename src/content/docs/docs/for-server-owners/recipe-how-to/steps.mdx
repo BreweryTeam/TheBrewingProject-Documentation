@@ -1,0 +1,32 @@
+---
+title: "Recipe Steps"
+---
+import Aside from "@/components/docs/aside/Aside.astro";
+
+## Introduction
+
+By defining a sequence of steps in a recipe, you will specify how a perfect brew has to be made. The real brewing process does not necessarily need to match exactly with the defined recipe steps.
+
+There are 4 different steps that are currently supported by TheBrewingProject:
+- Cooking
+- Mixing
+- Distilling
+- Aging
+
+<Aside title="Initial Step">
+Cooking and distilling always have to be the first step of any brewing process!
+</Aside>
+
+## Step Format
+Each type of step has an unique format
+
+### Cooking step
+An example definition of a cooking step:
+```yml
+- type: cook
+  cook-time: 2min
+  cauldron-type: water
+  ingredients:
+    - apple/10
+    - my_plugin_name:sugar/64
+```

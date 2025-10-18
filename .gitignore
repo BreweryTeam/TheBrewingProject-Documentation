@@ -22,3 +22,4 @@ pnpm-debug.log*
 
 # intellij
 .idea/
+pnpm-lock.yaml
