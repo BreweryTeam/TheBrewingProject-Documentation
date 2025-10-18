@@ -60,12 +60,14 @@ code:not(figure code) {
     background-color: var(--sl-color-gray-7);
 }
 
-/* Restyle tables and fix the layout breaking with images */
+/* Restyle tables and fix the layout breaking with images, prevent wrapping */
 .sl-markdown-content table:not(:where(.not-content *)) {
     border-collapse: collapse;
     background-color: var(--sl-color-gray-7);
     font-size: 0.925em;
-    display: table;
+    text-wrap: nowrap;
+    max-width: 100%;
+    width: fit-content;
 }
 
 .sl-markdown-content :is(th, td):not(:where(.not-content *)) {

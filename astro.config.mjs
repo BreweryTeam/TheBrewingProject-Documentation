@@ -43,15 +43,9 @@ export default defineConfig({
                             link: "docs/for-server-owners/install",
                         },
                         {
-                            label: "Guides",
+                            label: "How To's",
+                            autogenerate: { directory: "docs/for-server-owners/how-to/" },
                             collapsed: true,
-                            items: [
-                                {
-                                    label: "Creating a Recipe",
-                                    autogenerate: { directory: "docs/for-server-owners/guides/creating-a-recipe/" },
-                                    collapsed: true,
-                                },
-                            ],
                         },
                         {
                             label: "Reference",

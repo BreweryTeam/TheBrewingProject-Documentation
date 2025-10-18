@@ -1,0 +1,86 @@
+---
+title: "Effects"
+---
+
+import Aside from "@/components/docs/aside/Aside.astro";
+
+## Introduction
+
+TBP allows you to define custom effects that are applied to players when they consume brews.  
+To add effects to your brews, you need to configure them in the `effects` section of a brew's recipe (in the `recipes.yml` file).
+
+## Effect Configuration
+
+Each effect is defined by its type, duration, amplifier. They can also be configured to apply conditionally based on the brew's quality.
+
+### Format
+
+Effects are defined using the following format:
+```yaml
+effects:
+    - <EFFECT_TYPE>/<AMPLIFIER>/<DURATION>
+```
+- `EFFECT_TYPE`: The type of effect to apply (e.g., `SPEED`, `POISON`, `REGENERATION`). You can find a list of all available effect types in the [PaperMC's Javadocs](https://jd.papermc.io/paper/1.21.10/org/bukkit/potion/PotionEffectType.html).
+- `AMPLIFIER`: The strength of the effect (0 for level I, 1 for level II, etc.).
+- `DURATION`: The duration of the effect in seconds.
+
+#### Ranges
+
+You can also specify ranges for the amplifier and duration to introduce variability in the effects. Use the following format:
+
+```yaml
+effects:
+    - <EFFECT_TYPE>/<AMPLIFIER_MIN>-<AMPLIFIER_MAX>/<DURATION_MIN>-<DURATION_MAX>
+```
+A random value within the specified range will be chosen each time the effect is applied.  
+
+<Aside variant="warning" title="BreweryX">
+
+If you're coming from BreweryX, you may remember that the ranges were used for specifying different values based on brew quality.
+
+In TBP, this is no longer the case. Instead, you can define quality-specific effects using the new format described below.
+
+</Aside>
+
+#### Quality Factored Effects
+
+You can define effects that apply only to specific brew qualities by prefixing the effect definition with `+++`, `++`, or `+`.  
+This format is described more in detail in the [Quality Factored List](/docs/for-server-owners/reference/basics/#quality-factored-list) section of the Basics page.
+
+```yaml
+effects:
+    - +++<EFFECT_TYPE>/<AMPLIFIER>/<DURATION> # Excellent only
+    - ++<EFFECT_TYPE>/<AMPLIFIER>/<DURATION>  # Good only
+    - +<EFFECT_TYPE>/<AMPLIFIER>/<DURATION>   # Bad only
+    - <EFFECT_TYPE>/<AMPLIFIER>/<DURATION>    # All qualities
+```
+
+## Examples
+
+### Simple Example
+
+A brew that gives a Speed II effect for 45 to 90 seconds:
+```yaml
+effects:
+    - SPEED/1/45-90
+```
+
+### A more complex example
+
+Let's say we want to add:
+- A strong poison effect for Bad quality brews, and a weak poison effect for Good quality brews. No poison effect for Excellent quality brews.
+- A speed boost that increases in strength with the quality of the brew.
+- Regeneration and absorption only for Excellent quality brews.
+- A nausea effect for all qualities.
+
+```yaml
+effects:
+    - +POISON/2/30-60        # Bad only: Poison III for 30-60 seconds
+    - ++POISON/1/20-40       # Good only: Poison II for 20-40 seconds
+    - +++SPEED/2/60-120      # Excellent only: Speed III for 60-120 seconds
+    - ++SPEED/1/45-90        # Good only: Speed II for 45-90 seconds
+    - +SPEED/0/30-60         # Bad only: Speed I for 30-60 seconds
+    - +++REGENERATION/1/15-30 # Excellent only: Regeneration II for 15-30 seconds
+    - +++ABSORPTION/1/60     # Excellent only: Absorption II for 60 seconds
+    - NAUSEA/0/20-40         # All qualities: Nausea I for 20-40 seconds
+```
