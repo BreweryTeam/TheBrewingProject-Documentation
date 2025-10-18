@@ -64,6 +64,11 @@ export default defineConfig({
                         },
                     ],
                 },
+                {
+                    label: "Miscellaneous",
+                    autogenerate: { directory: "docs/misc/" },
+                    collapsed: true,
+                },
             ],
             expressiveCode: {
                 themes: ["slack-dark", "light-plus"],
