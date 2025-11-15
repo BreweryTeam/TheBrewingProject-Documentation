@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tbp.breweryteam.dev/sitemap-index.xml
