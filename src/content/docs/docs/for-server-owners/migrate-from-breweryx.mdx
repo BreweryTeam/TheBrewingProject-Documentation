@@ -17,14 +17,15 @@ You can now migrate from BreweryX, this is how it's done:
 - Barrels and only brew contents inside barrels (This will not apply to Minecraft barrels), any non brews will be wiped from existence
 - Cauldrons with their brew progress and ingredients
 - Everything in the `recipes.yml` file, except for:
-  - Most ingredient defined in `custom-items.yml`
-  - Other brews as ingredients might also break, as the brew display name can no longer be used as a key. 
+    - Most ingredient defined in `custom-items.yml`
+    - Other brews as ingredients might also break, as the brew display name can no longer be used as a key.
 
 Direct command definitions for recipes are no longer possible in TheBrewingProject, these will automatically be migrated over to event definitions, see `events.yml`
 
 ### What will not be migrated?
 
 Everything not listed in the above section will not be migrated, this includes:
+
 - Brews in other locations than barrels. **The data format is completely different for brews, they can not be read without the BreweryX API!**
 - `config.yml`
 - `custom-items.yml`
