@@ -1,3 +1,7 @@
+.main-pane > main > .content-panel > .sl-container {
+    max-width: none;
+}
+
 /* Remove border from the right side */
 .right-sidebar,
 .main-pane .content-panel {
@@ -77,5 +81,9 @@ code:not(figure code) {
 }
 
 .sl-markdown-content th:not(:where(.not-content *)) {
+    background-color: var(--sl-color-gray-6);
+}
+
+.sl-markdown-content table tr:nth-child(even):not(:where(.not-content *)) {
     background-color: var(--sl-color-gray-6);
 }
