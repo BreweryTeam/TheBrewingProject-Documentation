@@ -1,7 +1,3 @@
-.main-pane > main > .content-panel > .sl-container {
-    max-width: none;
-}
-
 /* Remove border from the right side */
 .right-sidebar,
 .main-pane .content-panel {
