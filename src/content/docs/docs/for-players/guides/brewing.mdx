@@ -11,6 +11,7 @@ import extractBrewsVideo from "@/assets/docs/for-players/guides/brewing/extract-
 
 import buildingADistilleryVideo from "@/assets/docs/for-players/guides/brewing/building-a-distillery.mp4";
 import distilleryInputsAndOutputsImage from "@/assets/docs/for-players/guides/brewing/distillery-inputs-and-outputs.png";
+import usingADistilleryVideo from "@/assets/docs/for-players/guides/brewing/using-a-distillery.webm";
 
 In The Brewing Project, a brew can created by processing it through different structures.
 
@@ -44,7 +45,11 @@ When you feel like the brew is ready, right-click the cauldron with empty bottle
     <source src={extractBrewsVideo} type="video/mp4" />
 </video>
 
----
+<br />
+<br />
+<br />
+<br />
+<br />
 
 ## Distilling
 
@@ -69,10 +74,20 @@ Don't forget to sneak while placing blocks on decorated pots! If you don't, you'
 
 If you build the distillery correctly, you should see a message in chat confirming it.
 
-### Using the Distillery - TODO
+### Using the Distillery
 
 The two stacked pots are the inputs for the distillery, and the single pot is the output. Just like in the image below:
 
 <Image src={distilleryInputsAndOutputsImage} alt="Distillery inputs and outputs" />
+
+So, to distill a brew, simply right-click one of the input pots to open the "mixture" GUI, and place the brew you want to distill wherever you want.  
+Then, right-click the single output pot to open the "distillate" GUI, the brews should start appearing there after a while.  
+While the distillation is happening, you should see particles appearing above the output pot.
+
+<video controls>
+    <source src={usingADistilleryVideo} type="video/mp4" />
+</video>
+
+The number of times you should distill is also something you'll need to figure out by yourself :\)
 
 ## Aging - TODO
