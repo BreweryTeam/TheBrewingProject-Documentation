@@ -9,17 +9,6 @@ import Aside from "@/components/docs/aside/Aside.astro";
 import { Image } from "astro:assets";
 import welcomeImage from "@/assets/img/welcome.png";
 
-export async function Status() {
-    const res = await fetch("https://api.mcsrvstat.us/3/showcase.breweryteam.dev");
-    const status = await res.json();
-
-    return <div>
-            <strong>Status:</strong> {status.online ? <span>
-            <span style="color: green;">Online</span> - {status.players.online} / {status.players.max} players, { status.protocol?.name ?? "unknown version" }
-            </span> : <span style="color: red;">Offline</span>}
-        </div>
-}
-
 <Image src={welcomeImage} alt="Welcome Image" />
 
 Here you can find all the information you need to get started with TheBrewingProject,
@@ -33,7 +22,5 @@ If you want to try TBP without setting it up on your own server, you can join ou
 ```
 showcase.breweryteam.dev
 ```
-
-<Status />
 
 </Aside>
