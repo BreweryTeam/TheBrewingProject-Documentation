@@ -1,0 +1,75 @@
+---
+title: "Modifiers"
+---
+
+`modifiers.yml` is where you define what statuses a player can have. A modifier can depend on other modifiers, and can also change when the player consumes something. it usually has a decrement time.
+### Drunken modifiers
+Here's a short description on each modifier property
+#### `name`
+
+is the unique name to identify this modifier everywhere else, note that there are possibilities of name conflicts with other configuration keys and you should keep the name alphanumeric including underscores. For example `hello_my_modifier` is valid, but `jag+känner+en+bot` would be invalid as `ä` and `+` is not alhpanumeric
+
+#### `min-value, max-value`
+
+This is how you define the range wherein the modifier is allowed to be, a normal min value would be 0, and a normal max value would be 100
+
+#### `decrement-time`
+
+You can define the decrement time for this modifier, a decrement time of 400 means that the modifier decreases 1 value every 400 ticks (20 seconds). An more complicated example would be:
+```yml
+decrement-time: "0.2 * sin(my_other_modifier)"
+```
+See the [exp4j library](https://www.objecthunter.net/exp4j/#Built-in_functions) for more information about what functions are available for any expression
+
+#### `increment-dependency`
+
+Define how the modifier should change when a modifier is consumed for the player. An example:
+```yml
+increment-dependency: consumed_other_modifier * (110 - different_modifier) / 110
+```
+A modifier prefixed with `consumed_`, is going to be the modifier change specified in the event. See the [exp4j library](https://www.objecthunter.net/exp4j/#Built-in_functions) for more information about what functions are available for any expression
+
+#### `display-name`
+
+Define the name of the modifier, it will be shown in commands
+
+### Drunken displays
+A drunken display will show for the player whenever a modifier changes, if no drunken display has been defined for the modifier, none will show.
+
+#### `message`
+Define the message to show whenever this modifier changes, it includes 3 custom tags, skull, bars, stars that you can use to display amount.
+
+#### `filter`
+
+Define an expression to filter out when to display the message, the display will only show when the expression is larger than 0. See the [exp4j library](https://www.objecthunter.net/exp4j/#Built-in_functions) for more information about what functions are available for any expression
+
+#### `display-value`
+
+The value that should be displayed to the user, this has to be normalized betwen 0 and 100 for the 3 different tags that can show the value. See the [exp4j library](https://www.objecthunter.net/exp4j/#Built-in_functions) for more information about what functions are available for any expression
+
+
+#### `display-window`
+
+Define where to display this message, can be chat, action_bar, title
+
+### Drunken tooltips
+Define how a modifier should be shown in a tooltip for all brew items
+
+#### `filter`
+
+Define an expression to filter out when add the tooltip to the brew, the tooltip will be added when the expression is larger than 0. See the [exp4j library](https://www.objecthunter.net/exp4j/#Built-in_functions) for more information about what functions are available for any expression
+
+#### `brewing-tooltip`
+
+Define what should be displayed when the brew is in a brewing process, i.e barrel or distillery. Eevery modifier has a custom tag here
+
+#### `default-tooltip`
+
+Define what should be displayed when the brew is not in a brewing process, i.e barrel or distillery. Every modifier has a custom tag here
+
+#### `sealed-tooltip`
+
+Define what should be displayed when the brew is sealed. Every modifier has a custom tag here
+
+### Consumables
+You can define items made outside TheBrewingProject to apply modifiers to a player, for example bread
