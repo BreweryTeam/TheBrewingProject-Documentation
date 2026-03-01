@@ -1,0 +1,33 @@
+---
+title: "Mixing and cooking"
+---
+
+import { Image } from "astro:assets";
+
+import boilerCookingAndMixingImage from "@/assets/docs/for-players/guides/brewing/boiler-cooking-and-mixing.png";
+import cookingMixingIngredientsVideo from "@/assets/docs/for-players/guides/brewing/cooking-mixing-ingredients.mp4";
+import extractBrewsVideo from "@/assets/docs/for-players/guides/brewing/extract-brews.mp4";
+
+The first step depends on whether you want to cook or mix.
+
+For cooking, you must first place a heat source (like a campfire, magma block or just a fire) underneath your cauldron. For mixing, you don't need any heat at all.
+
+Once your setup is ready, simply add water to the cauldron, and right-click it while holding an ingredient to add it.
+
+<Image src={boilerCookingAndMixingImage} alt="Boiler for cooking and mixing" />
+
+Once the ingredients are in the boiler, cooking or mixing will begin. While it does that, you should see particles appearing above the cauldron _(tip: the particles will change color depending on how close you are to a defined recipe or the progress of making your brew)_.
+
+You can check how long the boiler has been processing the ingredients by right-clicking it with a clock.
+
+<video muted controls>
+    <source src={cookingMixingIngredientsVideo} type="video/mp4" />
+</video>
+
+You might wonder how long it takes for the ingredients to be processed. The time, the amount of ingredients and the ingredients themselves, depend on the recipe. There is no true answer to this question, so you'll just have to experiment :D
+
+When you feel like the brew is ready, right-click the cauldron with empty bottles to collect it.
+
+<video muted controls>
+    <source src={extractBrewsVideo} type="video/mp4" />
+</video>
