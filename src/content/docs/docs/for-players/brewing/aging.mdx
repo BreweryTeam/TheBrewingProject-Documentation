@@ -2,4 +2,21 @@
 title: Aging
 ---
 
-WORK IN PROGRESS
+import { Image } from "astro:assets";
+import smallBarrel from "@/assets/docs/for-players/guides/brewing/small-barrel.png";
+import largeBarrel from "@/assets/docs/for-players/guides/brewing/large-barrel.png";
+
+Aging takes a long while, a typical beer could take about an hour to age, which is 3 in game days. You age a brew by putting it into a barrel, the type of the barrel matters.
+Some brews age better in an oak barrel than a spruce barrel, and so on.
+
+## Creating a barrel
+You create a barrel by placing down all required blocks, and then lastly a sign facing towards any of these blocs. The sign can be removed after that without any issue.
+
+If your server has not configured how the barrels will like, there should be two separate barrel types.
+### Small barrel
+Here's how a small oak barrel could look like.
+<Image src={smallBarrel} alt="Small barrel" />
+
+### Large barrel
+Here's how a large oak barrel could look like
+<Image src={largeBarrel} alt="Small barrel" />
