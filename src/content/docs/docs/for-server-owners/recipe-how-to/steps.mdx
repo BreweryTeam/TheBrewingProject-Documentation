@@ -2,6 +2,7 @@
 title: "Recipe Steps"
 ---
 
+
 import Aside from "@/components/docs/aside/Aside.astro";
 
 ## Introduction
@@ -11,13 +12,13 @@ By defining a sequence of steps in a recipe, you will specify how a perfect brew
 There are 4 different steps that are currently supported by TheBrewingProject:
 
 | Step Type  | ID        |
-| ---------- | --------- |
+|------------|-----------|
 | Cooking    | `cook`    |
 | Mixing     | `mix`     |
 | Distilling | `distill` |
 | Aging      | `age`     |
 
-<Aside title="Initial Step">Cooking and distilling always have to be the first step of any brewing process!</Aside>
+<Aside title="Initial Step">Cooking and mixing always have to be the first step of any brewing process!</Aside>
 
 ## Step Format
 
@@ -35,3 +36,35 @@ An example definition of a cooking step:
       - apple/10
       - my_plugin_name:sugar/64
 ```
+### Mix step
+
+An example definition of a mix step:
+
+```yml
+- type: mix
+  mix-time: 2min
+  cauldron-type: water # Not read at the moment
+  ingredients:
+    - brewery:gin/3
+    - sugar/2
+```
+
+### Distill step
+
+An example definition of a distill step:
+```yml
+- type: distill
+  runs: 3
+```
+Runs means that a brew would need to be distilled a specific amount of times to get a perfect result.
+### Age step
+
+An example definition of an age step:
+
+```yml
+- type: age
+  age-years: 13
+  barrel-type: any
+```
+
+<Aside title="Barrel Types">More about barrel types can be found in [Aging guide](/docs/for-players/brewing/aging/#barrel-types)</Aside>
