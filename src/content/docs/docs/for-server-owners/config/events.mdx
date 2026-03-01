@@ -1,0 +1,187 @@
+---
+title: "Events"
+---
+import { Aside } from "@astrojs/starlight/components";
+
+This is a system for executing commands, applying potion effects, sending messages, and applying other events. All events configuration can be found in `events.yml`
+### Random drunken events
+Which events should happen randomly whenever a player gets drunk enough, or has enough toxins.
+```yml
+enabled-random-events:
+  - puke
+  - memory_loss
+  - stumble
+  - chicken
+  - drunk_message
+  - nausea
+```
+### Pass out time
+How many minutes the player should be passed out whenever the `pass_out` event gets triggered.
+```yml
+pass-out-time: 5
+```
+### Teleport destinations
+Where should the player teleport to to (chosen randomly) whenever the teleport event gets triggered.
+```yml
+teleport-destinations:
+  - world, x, y, z
+```
+### Drunken messages
+What messages should be sent from the player whenever the drunk_message event triggers.
+```yml
+messages:
+  - I love you <random_player_name>, you're my best friend.
+  - I could do one more.
+  - Who is she?
+  - Watch this!
+  - I'm not drunk. You're drunk.
+```
+<Aside title="Keep this setting disabled">It can get very annoying to have repeating messages sent out to chat like this, keep this away from random drunken events</Aside>
+
+### Custom events
+This is how you define your own custom event
+```yml
+custom-events:
+  memory_loss:
+    steps:
+      - named-event: pass_out
+        wait-condition: join
+      - named-event: teleport
+        consume:
+          alcohol: -30
+          toxins: -15
+```
+TBP's custom event system is meant to allow more flexible definitions of events. You can with custom events define commands to execute, effects to play, and more. It's almost as if it's a programming language of itself!
+
+The most rudimentary concept for custom events is that the order which the event step is going to play defined as such:
+```yml
+- This runs first
+- This runs after
+- This runs last
+```
+
+We will now go through all the properties you can define in each step.
+#### `named-event`
+
+Run a predefined event.
+
+Can have the values  `puke`, `pass_out`, `stumble`, `chicken`, `teleport`, `drunk_message`, `nausea`, `fever`, `hallucination`, `kaboom`. List might expand.
+
+#### `wait-duration`
+
+Wait the specified duration until continuing to the next step, example duration is `10s 10t`, wait 10 seconds and 10 ticks.
+
+#### `wait-condition`
+
+Wait for condition until this step triggers. Here's how you define each condition:
+```yml
+steps:
+  - wait-condition: died
+  - wait-condition: joined-server
+  - wait-condition:
+      joined-world: my-world-name
+  - wait-condition: took-damage
+```
+
+#### `if-condition`
+
+Continue if condition is met, otherwise stop event. Here's how you define each if condition:
+```yml
+steps:
+  - if-condition:
+      modifier-above:
+        modifier: alcohol
+        value: 70
+  - if-condition:
+      has-permission: my-permission
+  - if-condition:
+      joined-world: my-world-name
+```
+You can also invert a condition with the `not` keyword, like this:
+```yml
+steps:
+  - if-condition:
+      not:
+        has-permission: my-permission
+```
+
+#### `consume`
+
+Consume the specified modifiers, an example is
+```yml
+steps:
+  - consume:
+      alcohol: 10
+      my_modifier: -20
+```
+#### `event`
+
+Define another event with an event property (can be custom or predefined)
+
+#### `effect`
+
+Apply an effect to the player. Requires effect, amplifier, and duration property. An example is:
+```yml
+steps:
+  - effect: poison
+    amplifier: 1;2
+    duration: 20;100
+```
+Apply a poison effect on a player with a random amplifier within the range 1-2 and duration within the range 20-100
+
+#### `command`
+
+Execute a command. Requires the command property, command executor can be defined with the `as` property
+```yml
+steps:
+  - command: ping
+    as: player # Execute with the players permissions
+  - command: pong
+    as: server # Execute with console permissions
+```
+
+#### `location`
+
+Set the location for the player (teleport). An example:
+```yml
+steps:
+  - location: worldname 1 2 3
+```
+Teleport the player to the world `worldname` to position x=1, y=2, z=3
+
+#### `integration-event`
+
+Trigger an event from an integration
+```yml
+steps:
+  - integration-event: gsit:sit
+```
+
+## An example
+
+The following custom event definition defines an event with a probability and ranges. This makes it usable in [enabled-random-events](./#random-drunken-events) section.
+```yml
+repeating_drunken_walk:
+  probability:
+    probability-expression: 4*probabilityWeight(alcohol)
+    allowed-ranges:
+      alcohol:
+        min: 60.0
+        max: 100.0
+  display-name: walk unsteadily
+  steps:
+  - named-event: drunken_walk
+  - wait-duration: 20s 1t
+  - if-condition:
+      modifier-above:
+        modifier: alcohol
+        value: 60.0
+  - event: repeating_drunken_walk
+```
+The steps are as follows:
+1. Run the drunken walk predefined event
+2. Wait for 20 seconds and one tick
+3. Continue to the next step if alcohol level is above 60, otherwise exit
+4. Go back to step 1, run this event again
+
+This would give you infinite drunken walk, as long as your alcohol level is above 60
