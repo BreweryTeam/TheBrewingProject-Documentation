@@ -1,0 +1,50 @@
+---
+title: Distilling
+---
+
+
+import { Image } from "astro:assets";
+import Aside from "@/components/docs/aside/Aside.astro";
+
+import buildingADistilleryVideo from "@/assets/docs/for-players/guides/brewing/building-a-distillery.mp4";
+import distilleryInputsAndOutputsImage
+    from "@/assets/docs/for-players/guides/brewing/distillery-inputs-and-outputs.png";
+import usingADistilleryVideo from "@/assets/docs/for-players/guides/brewing/using-a-distillery.webm";
+
+Distilling isn't required, but you'll see it in a lot of recipes.
+Unlike in BreweryX, TBP uses a custom structure for distillation instead of a brewing stand.
+
+### Building a Distillery
+
+To build a distillery, you will need 3 decorated pots and 3 bamboo fences.
+
+Place them like in the video below:
+
+<video muted controls>
+    <source src={buildingADistilleryVideo} type="video/mp4" />
+</video>
+
+<Aside title="This has happened to me way too many times" variant="info">
+
+    Don't forget to sneak while placing blocks on decorated pots! If you don't, you'll end up putting items inside them
+    instead.
+
+</Aside>
+
+If you build the distillery correctly, you should see a message in chat confirming it.
+
+### Using the Distillery
+
+The two stacked pots are the inputs for the distillery, and the single pot is the output. Just like in the image below:
+
+<Image src={distilleryInputsAndOutputsImage} alt="Distillery inputs and outputs" />
+
+So, to distill a brew, simply right-click one of the input pots to open the "mixture" GUI, and place the brew you want to distill wherever you want.
+Then, right-click the single output pot to open the "distillate" GUI, the brews should start appearing there after a while.
+While the distillation is happening, you should see particles appearing above the output pot.
+
+<video controls>
+    <source src={usingADistilleryVideo} type="video/mp4" />
+</video>
+
+The number of times you should distill is also something you'll need to figure out by yourself :\)

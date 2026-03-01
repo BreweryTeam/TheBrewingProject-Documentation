@@ -58,9 +58,20 @@ export default defineConfig({
                     label: "For Players",
                     items: [
                         {
-                            label: "Guides",
-                            autogenerate: { directory: "docs/for-players/guides/" },
-                            collapsed: true,
+                            label: "Brewing",
+                            items: [
+                                "docs/for-players/brewing/brewing-intro",
+                                "docs/for-players/brewing/mixing-and-cooking",
+                                "docs/for-players/brewing/distilling",
+                                "docs/for-players/brewing/aging",
+                            ],
+                        },
+                        {
+                            label: "Brew handling",
+                            autogenerate: {
+                                directory: "docs/for-players/brew-handling",
+                                collapsed: false,
+                            },
                         },
                     ],
                 },
