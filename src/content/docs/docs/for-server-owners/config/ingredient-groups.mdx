@@ -1,0 +1,25 @@
+---
+title: "Ingredient Groups"
+---
+import { Aside } from "@astrojs/starlight/components";
+
+Ingredient groups are for when you want one brew to have multiple ingredient alternatives. You might for example want to have multiple different types of grain to make whiskey. The format is a [Quality Factored List](/docs/for-server-owners/reference/basics/#quality-factored-list) and supports all ingredient types.
+
+```yml
+- key: meat
+  display-name: Meat
+  materials:
+  - +pork # Will have a worsening effect on result brew
+  - ++chicken # Will have a slightly worsening effect on result brew
+  - +++beef # Will have an improving effect on the result brew
+- key: horse_food
+  display-name: Horse Food
+  materials:
+  - "#minecraft:horse_food" # Item tags are allowed :3
+```
+<Aside title="The only limitation">Referencing ingredient groups inside an ingredient group is disallowed</Aside>
+
+## Referencing an ingredient group
+
+An ingredient group can then be referenced by adding the prefix `#brewery:` to the key. You can reference both of the examples above like this `#brewery:meat` and `#brewery:horse_food`.
+<Aside title="Namespaces">If you defined a key with its own namespace, something will fail</Aside>

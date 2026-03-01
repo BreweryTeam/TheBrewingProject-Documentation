@@ -64,11 +64,12 @@ Ingredients are the building blocks of your recipes. An ingredient can be a vani
 
 Ingredients are defined as a list under the `ingredients` key in a brewing step. The format for defining an ingredient depends on the type of item:
 
-| Format                             | Description                                                                                           |
-| ---------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `<item_id>/<amount>`               | A Minecraft item.                                                                                     |
-| `<plugin_name>:<item_id>/<amount>` | An item from another plugin. See [Integrations](/docs/for-server-owners/reference/integrations) page. |
-| `brewery:<brew_id>/<amount>`       | Another brew from TheBrewingProject.                                                                  |
+| Format                             | Description                                                                                                     |
+|------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| `<item_id>/<amount>`               | A Minecraft item.                                                                                               |
+| `<plugin_name>:<item_id>/<amount>` | An item from another plugin. See [Integrations](/docs/for-server-owners/reference/integrations) page.           |
+| `brewery:<brew_id>/<amount>`       | Another brew from TheBrewingProject.                                                                            |
+| `#brewery:<group_id>/amount`       | An ingredient group reference. See [Ingredient Groups](/docs/for-server-owners/config/ingredient-groups/) page. |
 
 Example:
 
@@ -77,15 +78,16 @@ ingredients:
     - emerald/5 # 5 Emeralds.
     - nexo:infused_golden_apple/2 # 2 Infused Golden Apples from the Nexo plugin.
     - brewery:beer/1 # 1 Beer from TheBrewingProject.
+    - "#brewery:grass/1" # One item from the grass group
 ```
-
+<Aside title="Yaml and '#'">Note that every ingredient group has to be within quotes, otherwise it would count as a comment due to the `#` symbol</Aside>
 ## MiniMessage Formatting
 
 Every message or text in the recipe configuration is going to be formatted using MiniMessage.  
 **Legacy formatting codes (e.g., &a, §l) are not supported.**
 
 | Format                 | Message                                     |
-| ---------------------- | ------------------------------------------- |
+|------------------------|---------------------------------------------|
 | Legacy (Not Supported) | `&2&lTest&r&#2080ff123`                     |
 | MiniMessage            | `<dark_green><bold>Test<reset><#2080ff>123` |
 | MiniMessage - short    | `<dark_green><b>Test<r><#2080ff>123`        |
