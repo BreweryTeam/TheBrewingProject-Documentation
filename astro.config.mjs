@@ -48,6 +48,10 @@ export default defineConfig({
                             collapsed: true,
                         },
                         {
+                            label: "Configuration",
+                            autogenerate: { directory: "docs/for-server-owners/config" },
+                        },
+                        {
                             label: "Reference",
                             autogenerate: { directory: "docs/for-server-owners/reference/" },
                             collapsed: true,
