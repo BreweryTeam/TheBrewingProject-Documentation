@@ -13,6 +13,10 @@ export default defineConfig({
         // @ts-expect-error: https://github.com/withastro/astro/issues/14030
         plugins: [tailwindcss()],
     },
+    redirects: {
+        "/" : "/docs/welcome",
+        "/index" : "/docs/welcome"
+    },
     integrations: [
         starlight({
             title: "TheBrewingProject",
@@ -69,12 +73,13 @@ export default defineConfig({
                                 "docs/for-players/brewing/distilling",
                                 "docs/for-players/brewing/aging",
                             ],
+                            collapsed: true,
                         },
                         {
                             label: "Brew handling",
                             autogenerate: {
                                 directory: "docs/for-players/brew-handling",
-                                collapsed: false,
+                                collapsed: true,
                             },
                         },
                     ],
