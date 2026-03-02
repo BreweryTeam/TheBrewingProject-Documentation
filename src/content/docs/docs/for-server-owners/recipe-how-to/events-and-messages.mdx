@@ -1,0 +1,30 @@
+---
+title: "Events and sending messages"
+---
+import { Aside } from "@astrojs/starlight/components";
+
+## Event
+
+You can initiate an [event](/docs/for-server-owners/config/events/) whenever the brew is consumed like this:
+```yml
+my_brew:
+  ...
+  events:
+    - +stumble
+    - ++gsit:sit
+    - +++my_custom_event
+    - tunnel_vision
+```
+<Aside title="Quality factored list">See [quality factored list](/docs/for-server-owners/reference/basics/#quality-factored-list) for more information</Aside>
+
+## Sending messages
+
+You can specify some messages to send **to** the player. They are specified using the [MiniMessage](https://docs.advntr.dev/minimessage/format) format
+```yml
+my_brew:
+   ...
+   messages.action-bar: This message will show up on player action bar
+   messages.title: This message will show up on player title
+   messages.message: This message will show up in player chat
+```
+<Aside title="Quality factored value">See [quality factored value](/docs/for-server-owners/reference/basics/#quality-factored-value) for more information. If you want to have multiple lines, use the `br` or `newline` MiniMessage tag </Aside>
