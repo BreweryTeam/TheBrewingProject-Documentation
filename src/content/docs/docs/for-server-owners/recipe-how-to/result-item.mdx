@@ -1,0 +1,60 @@
+---
+title: "Resulting item"
+---
+
+import Aside from "@/components/docs/aside/Aside.astro";
+
+By default, the result item will be `minecraft:potion`.
+
+## Color *
+This is how you specify a color of the brew.
+```yml
+my_recipe:
+  ...
+  potion-attributes.color: "#FFFFFF" # White
+```
+<Aside title="Quality factored value">See [quality factored value](/docs/for-server-owners/reference/basics/#quality-factored-value) for more information.</Aside>
+
+## Name *
+This is how you specify the name of the brew.
+```yml
+my_recipe:
+  ...
+  potion-attributes.name: Bad/Good/Excellent
+```
+<Aside title="Quality factored value">See [quality factored value](/docs/for-server-owners/reference/basics/#quality-factored-value) for more information.</Aside>
+
+## Lore
+This is how you specify the lore of a brew:
+```yml
+my_recipe:
+  ...
+  potion-attributes.lore:
+    - I love my
+    - +Bad brew
+    - ++Good brew
+    - +++Excellent brew
+```
+<Aside title="Quality factored list">See [quality factored list](/docs/for-server-owners/reference/basics/#quality-factored-list) for more information.</Aside>
+
+## Custom textures
+
+You can specify either custom model data, or item model like this:
+```yml
+my_recipe:
+  ...
+  potion-attributes.custom-model-data: 1/2/3
+  potion-attributes.item-model: dirt/sand/gravel
+```
+<Aside title="Quality factored value">See [quality factored value](/docs/for-server-owners/reference/basics/#quality-factored-value) for more information.</Aside>
+
+## Custom resulting item
+
+If you want the resulting item to have a different material than `minecraft:potion`, then this can be changed like this:
+```yml
+my_recipe:
+  ...
+  potion-attributes.custom-id: splash_potion/splash_potion/lingering_potion
+```
+With that example, you can now throw brews and affect other players!
+<Aside title="Quality factored value">See [quality factored value](/docs/for-server-owners/reference/basics/#quality-factored-value) for more information.</Aside>
